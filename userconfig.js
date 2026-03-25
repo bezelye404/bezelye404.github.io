@@ -44,7 +44,7 @@ const default_configuration = {
   openLastVisitedTab: true,
   tabs: [
     {
-      name: "null",
+      name: "zart",
       background_url: "src/img/banners/banner_13.gif",
       categories: [
 
@@ -80,7 +80,7 @@ const default_configuration = {
       ],
     },
     {
-      name: "dev",
+      name: "zurt",
       background_url: "src/img/banners/banner_16.gif",
       categories: [
         {
@@ -132,7 +132,7 @@ const default_configuration = {
       ],
     },
     {
-      name: "chill",
+      name: "zort",
       background_url: "src/img/banners/banner_15.gif",
       categories: [
         {

@@ -67,7 +67,7 @@ const default_configuration = {
               name: "proton",
               url: "https://account.proton.me/apps",
               icon: "atom",
-              icon_color: palette.pink,
+              icon_color: palette.yellow,
             },
             {
               name: "gdrive",

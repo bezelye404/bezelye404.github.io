@@ -47,7 +47,7 @@ const default_configuration = {
       name: "null",
       background_url: "src/img/banners/banner_13.gif",
       categories: [
-        
+
         {
           name: "workspace",
           links: [
@@ -66,7 +66,7 @@ const default_configuration = {
             {
               name: "proton",
               url: "https://account.proton.me/apps",
-              icon: "brand-atom-2",
+              icon: "atom-2",
               icon_color: palette.purple,
             },
             {
@@ -81,7 +81,7 @@ const default_configuration = {
     },
     {
       name: "dev",
-      background_url: "src/img/banners/banner_07.gif",
+      background_url: "src/img/banners/banner_16.gif",
       categories: [
         {
           name: "development",
@@ -133,7 +133,7 @@ const default_configuration = {
     },
     {
       name: "chill",
-      background_url: "src/img/banners/banner_08.gif",
+      background_url: "src/img/banners/banner_15.gif",
       categories: [
         {
           name: "social media",

@@ -10,7 +10,7 @@ let palette = initThemeSystem(preferredLightTheme, preferredDarkTheme);
 const default_configuration = {
   overrideStorage: true,
   temperature: {
-    location: "London",
+    location: "Istanbul",
     scale: "C",
   },
   clock: {
@@ -19,8 +19,8 @@ const default_configuration = {
   },
   additionalClocks: [
     {
-      label: "UA",
-      timezone: "Europe/Kyiv",
+      label: "IST",
+      timezone: "Europe/Istanbul",
       format: "h:i",
       icon_color: palette.peach,
     },
@@ -30,8 +30,9 @@ const default_configuration = {
       p: ["https://www.perplexity.ai/search/?q=", "PerplexityAI"],
       d: ["https://duckduckgo.com/?q=", "DuckDuckGo"],
       g: ["https://google.com/search?q=", "Google"],
+      s: ["https://www.startpage.com/sp/search", "Startpage"],
     },
-    default: "d",
+    default: "s",
   },
   keybindings: {
     "s": "search-bar",
@@ -43,26 +44,10 @@ const default_configuration = {
   openLastVisitedTab: true,
   tabs: [
     {
-      name: "myself",
-      background_url: "src/img/banners/banner_09.gif",
+      name: "null",
+      background_url: "src/img/banners/banner_13.gif",
       categories: [
-        {
-          name: "bookmarks",
-          links: [
-            {
-              name: "raindrop",
-              url: "https://app.raindrop.io",
-              icon: "droplet-bolt",
-              icon_color: palette.green,
-            },
-            {
-              name: "musicForProgramming();",
-              url: "https://musicforprogramming.net",
-              icon: "binary-tree",
-              icon_color: palette.peach,
-            },
-          ],
-        },
+        
         {
           name: "workspace",
           links: [
@@ -79,51 +64,16 @@ const default_configuration = {
               icon_color: palette.peach,
             },
             {
-              name: "sheets",
-              url: "https://docs.google.com/spreadsheets",
-              icon: "table",
-              icon_color: palette.red,
+              name: "proton",
+              url: "https://account.proton.me/apps",
+              icon: "brand-atom-2",
+              icon_color: palette.purple,
             },
             {
-              name: "drive",
+              name: "gdrive",
               url: "https://drive.google.com/drive/home",
               icon: "brand-google-drive",
               icon_color: palette.blue,
-            },
-          ],
-        },
-        {
-          name: "media",
-          links: [
-            {
-              name: "уп",
-              url: "https://www.pravda.com.ua",
-              icon: "news",
-              icon_color: palette.green,
-            },
-            {
-              name: "mil.in.ua",
-              url: "https://mil.in.ua",
-              icon: "badge-filled",
-              icon_color: palette.peach,
-            },
-            {
-              name: "куток",
-              url: "https://kutok.io",
-              icon: "border-radius",
-              icon_color: palette.red,
-            },
-            {
-              name: "ґрунт",
-              url: "https://grnt.media",
-              icon: "eye-bolt",
-              icon_color: palette.blue,
-            },
-            {
-              name: "village",
-              url: "https://www.village.com.ua",
-              icon: "home-2",
-              icon_color: palette.mauve,
             },
           ],
         },
@@ -163,67 +113,26 @@ const default_configuration = {
           ],
         },
         {
-          name: "challenges",
+          name: "ai",
           links: [
             {
-              name: "kaggle",
-              url: "https://www.kaggle.com",
+              name: "gemini",
+              url: "https://www.gemini.google.com",
               icon: "brain",
-              icon_color: palette.green,
+              icon_color: palette.blue,
             },
             {
-              name: "leetcode",
-              url: "https://leetcode.com",
+              name: "boot",
+              url: "https://boot.dev",
               icon: "code-plus",
               icon_color: palette.peach,
-            },
-            {
-              name: "exercism",
-              url: "https://exercism.org",
-              icon: "code-minus",
-              icon_color: palette.red,
-            },
-            {
-              name: "aoc",
-              url: "https://adventofcode.com",
-              icon: "brand-linktree",
-              icon_color: palette.blue,
-            },
-          ],
-        },
-        {
-          name: "resources",
-          links: [
-            {
-              name: "dou",
-              url: "https://dou.ua",
-              icon: "brand-prisma",
-              icon_color: palette.green,
-            },
-            {
-              name: "hackernews",
-              url: "https://news.ycombinator.com",
-              icon: "brand-redhat",
-              icon_color: palette.peach,
-            },
-            {
-              name: "uber engineering",
-              url: "https://www.uber.com/en-GB/blog/london/engineering",
-              icon: "brand-uber",
-              icon_color: palette.red,
-            },
-            {
-              name: "netflix tech blog",
-              url: "https://netflixtechblog.com",
-              icon: "brand-netflix",
-              icon_color: palette.blue,
             },
           ],
         },
       ],
     },
     {
-      name: "chi ll",
+      name: "chill",
       background_url: "src/img/banners/banner_08.gif",
       categories: [
         {
@@ -236,14 +145,14 @@ const default_configuration = {
               icon_color: palette.green,
             },
             {
-              name: "facebook",
-              url: "https://www.facebook.com",
-              icon: "brand-facebook",
+              name: "twitter",
+              url: "https://x.com",
+              icon: "brand-twitter",
               icon_color: palette.peach,
             },
             {
               name: "reddit",
-              url: "https://www.reddit.com/r/unixporn",
+              url: "https://www.reddit.com/",
               icon: "brand-reddit",
               icon_color: palette.red,
             },
@@ -253,40 +162,22 @@ const default_configuration = {
           name: "gaming",
           links: [
             {
-              name: "infiniteBacklog",
-              url: "https://infinitebacklog.net",
-              icon: "device-gamepad",
-              icon_color: palette.green,
-            },
-            {
               name: "steam",
               url: "https://store.steampowered.com",
               icon: "brand-steam",
               icon_color: palette.peach,
             },
             {
-              name: "epicgames",
-              url: "https://store.epicgames.com",
-              icon: "brand-fortnite",
-              icon_color: palette.red,
-            },
-            {
-              name: "nintendo",
-              url: "https://store.nintendo.co.uk",
-              icon: "device-nintendo",
+              name: "steamhunters",
+              url: "https://steamhunters.com/",
+              icon: "bow",
               icon_color: palette.blue,
             },
           ],
         },
         {
-          name: "video",
+          name: "media",
           links: [
-            {
-              name: "anilist",
-              url: "https://anilist.co/home",
-              icon: "brand-funimation",
-              icon_color: palette.green,
-            },
             {
               name: "youtube",
               url: "https://www.youtube.com",
@@ -300,9 +191,9 @@ const default_configuration = {
               icon_color: palette.red,
             },
             {
-              name: "kyivstar",
-              url: "https://tv.kyivstar.ua",
-              icon: "star-filled",
+              name: "kick",
+              url: "https://kick.com",
+              icon: "brand-kick",
               icon_color: palette.blue,
             },
           ],

@@ -66,7 +66,7 @@ const default_configuration = {
             {
               name: "proton",
               url: "https://account.proton.me/apps",
-              icon: "atom-2",
+              icon: "atom",
               icon_color: palette.purple,
             },
             {

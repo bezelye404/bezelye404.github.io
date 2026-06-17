@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="referrer" content="no-referrer">
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 <title>Dino</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -214,6 +216,372 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
 
+  #name-input-panel {
+    display: none;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.96);
+    padding: 12px 18px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  
+  body.dark-mode #name-input-panel {
+    background: rgba(32, 33, 36, 0.96);
+    border-color: #3c4043;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  #player-name {
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #111;
+  }
+
+  body.dark-mode #player-name {
+    border-color: #555;
+    background: #202124;
+    color: #f1f3f4;
+  }
+
+  #leaderboard-section {
+    margin-top: 24px;
+    width: 100%;
+    max-width: 1000px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  body.dark-mode #leaderboard-section {
+    background: #202124;
+    border-color: #3c4043;
+  }
+
+  #leaderboard-section h2 {
+    font-size: clamp(11px, 3.2vw, 14px);
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    color: #111;
+  }
+
+  body.dark-mode #leaderboard-section h2 {
+    color: #f1f3f4;
+  }
+
+  #leaderboard-table {
+    width: 100%;
+    max-width: 400px;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+  }
+
+  #leaderboard-table th, #leaderboard-table td {
+    padding: 8px 12px;
+    font-size: clamp(10px, 2.8vw, 12px);
+    border-bottom: 1px solid #eee;
+  }
+
+  body.dark-mode #leaderboard-table th, body.dark-mode #leaderboard-table td {
+    border-bottom-color: #3c4043;
+  }
+
+  #leaderboard-table th {
+    font-weight: bold;
+    color: #666;
+    text-align: left;
+    border-bottom-width: 2px;
+  }
+
+  body.dark-mode #leaderboard-table th {
+    color: #acb0b6;
+  }
+
+  #leaderboard-table td {
+    color: #333;
+  }
+
+  body.dark-mode #leaderboard-table td {
+    color: #e8eaed;
+  }
+
+
+
+  #audio-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+  }
+
+  #audio-toggle:hover {
+    background: rgba(0,0,0,0.05);
+  }
+
+  body.dark-mode #audio-toggle:hover {
+    background: rgba(255,255,255,0.08);
+  }
+  #share-modal {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.96);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 10;
+    padding: 20px;
+  }
+
+  body.dark-mode #share-modal {
+    background: rgba(32, 33, 36, 0.96);
+  }
+
+  #import-code-btn, #copy-code-btn {
+    font-family: inherit;
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: #535353;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.1s;
+  }
+  #import-code-btn:active, #copy-code-btn:active {
+    transform: scale(0.96);
+  }
+  body.dark-mode #import-code-btn, body.dark-mode #copy-code-btn {
+    background: #acb0b6;
+    color: #202124;
+  }
+
+  .close-btn {
+    padding: 6px 16px;
+    border: 1px solid #535353;
+    background: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    font-family: inherit;
+    font-weight: bold;
+    color: #535353;
+  }
+
+  body.dark-mode .close-btn {
+    border-color: #acb0b6;
+    color: #acb0b6;
+  }
+
+  #share-btn {
+    margin-top: 6px;
+    font-family: inherit;
+    font-size: clamp(10px, 2.8vw, 12px);
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: #535353;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  body.dark-mode #share-btn {
+    background: #acb0b6;
+    color: #202124;
+  }
+
+  .custom-selectors {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .select-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .select-group label {
+    font-size: 10px;
+    font-weight: bold;
+    color: #666;
+  }
+
+  body.dark-mode .select-group label {
+    color: #acb0b6;
+  }
+
+  .select-group select {
+    font-family: inherit;
+    font-size: 11px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 4px 8px;
+    outline: none;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+  }
+
+  body.dark-mode .select-group select {
+    background: #202124;
+    border-color: #3c4043;
+    color: #f1f3f4;
+  }
+
+  /* Matrix Theme Override */
+  body.theme-matrix {
+    background: #000000;
+    color: #00ff00;
+  }
+
+  body.theme-matrix #score-board, 
+  body.theme-matrix #score-board span, 
+  body.theme-matrix #leaderboard-section h2, 
+  body.theme-matrix #stats-section h2, 
+  body.theme-matrix td,
+  body.theme-matrix th,
+  body.theme-matrix .stat-val,
+  body.theme-matrix .stat-lbl,
+  body.theme-matrix .mode-selector span,
+  body.theme-matrix .select-group label {
+    color: #00ff00 !important;
+  }
+
+  body.theme-matrix #game-wrapper, 
+  body.theme-matrix #leaderboard-section,
+  body.theme-matrix #stats-section,
+  body.theme-matrix #player-name,
+  body.theme-matrix #import-code-input,
+  body.theme-matrix #share-code-input,
+  body.theme-matrix .select-group select {
+    border-color: #00ff00 !important;
+    background: #000000 !important;
+    color: #00ff00 !important;
+  }
+
+  body.theme-matrix #overlay,
+  body.theme-matrix #share-modal {
+    background: rgba(0,0,0,0.96) !important;
+    color: #00ff00 !important;
+  }
+
+  body.theme-matrix #overlay h1, 
+  body.theme-matrix #overlay p, 
+  body.theme-matrix #overlay .hint,
+  body.theme-matrix .hint,
+  body.theme-matrix #name-panel-title {
+    color: #00ff00 !important;
+  }
+
+  body.theme-matrix .mode-btn,
+  body.theme-matrix #theme-toggle,
+  body.theme-matrix #audio-toggle,
+  body.theme-matrix #save-name-btn,
+  body.theme-matrix #share-btn,
+  body.theme-matrix #import-code-btn,
+  body.theme-matrix #copy-code-btn,
+  body.theme-matrix .close-btn {
+    border: 1px solid #00ff00 !important;
+    color: #00ff00 !important;
+    background: #000000 !important;
+  }
+
+  body.theme-matrix .mode-btn.active {
+    background: #00ff00 !important;
+    color: #000000 !important;
+  }
+
+  body.theme-matrix #leaderboard-table th, 
+  body.theme-matrix #leaderboard-table td {
+    border-bottom-color: #003300 !important;
+  }
+
+  /* Cyberpunk Theme Override */
+  body.theme-cyberpunk {
+    background: #0f051d;
+    color: #ff007f;
+  }
+
+  body.theme-cyberpunk #score-board, 
+  body.theme-cyberpunk #score-board span, 
+  body.theme-cyberpunk #leaderboard-section h2, 
+  body.theme-cyberpunk #stats-section h2, 
+  body.theme-cyberpunk td,
+  body.theme-cyberpunk th,
+  body.theme-cyberpunk .stat-val,
+  body.theme-cyberpunk .stat-lbl,
+  body.theme-cyberpunk .mode-selector span,
+  body.theme-cyberpunk .select-group label {
+    color: #ff007f !important;
+  }
+
+  body.theme-cyberpunk #game-wrapper, 
+  body.theme-cyberpunk #leaderboard-section,
+  body.theme-cyberpunk #stats-section,
+  body.theme-cyberpunk #player-name,
+  body.theme-cyberpunk #import-code-input,
+  body.theme-cyberpunk #share-code-input,
+  body.theme-cyberpunk .select-group select {
+    border-color: #ff007f !important;
+    background: #0f051d !important;
+    color: #00ffff !important;
+  }
+
+  body.theme-cyberpunk #overlay,
+  body.theme-cyberpunk #share-modal {
+    background: rgba(15, 5, 29, 0.96) !important;
+    color: #00ffff !important;
+  }
+
+  body.theme-cyberpunk #overlay h1, 
+  body.theme-cyberpunk #overlay p, 
+  body.theme-cyberpunk #overlay .hint,
+  body.theme-cyberpunk #overlay .hint,
+  body.theme-cyberpunk #name-panel-title {
+    color: #00ffff !important;
+  }
+
+  body.theme-cyberpunk .mode-btn,
+  body.theme-cyberpunk #theme-toggle,
+  body.theme-cyberpunk #audio-toggle,
+  body.theme-cyberpunk #save-name-btn,
+  body.theme-cyberpunk #share-btn,
+  body.theme-cyberpunk #import-code-btn,
+  body.theme-cyberpunk #copy-code-btn,
+  body.theme-cyberpunk .close-btn {
+    border: 1px solid #ff007f !important;
+    color: #00ffff !important;
+    background: #0f051d !important;
+  }
+
+  body.theme-cyberpunk .mode-btn.active {
+    background: #ff007f !important;
+    color: #0f051d !important;
+  }
+
+  body.theme-cyberpunk #leaderboard-table th, 
+  body.theme-cyberpunk #leaderboard-table td {
+    border-bottom-color: #2a085c !important;
+  }
+
   /* Mobile Portrait Layout & Styling Adjustments */
   @media (max-width: 768px) {
     body {
@@ -235,6 +603,11 @@
       padding: 0 4px;
       margin-bottom: 12px;
     }
+
+    #leaderboard-section {
+      border-radius: 16px;
+      padding: 12px;
+    }
   }
 </style>
 </head>
@@ -244,21 +617,60 @@
   <div id="score-board">
     SKOR: <span id="score">00000</span> &nbsp; EN İYİ: <span id="hi">00000</span>
   </div>
-  <button id="theme-toggle" aria-label="Temayı Değiştir">
-    <svg class="theme-icon-moon" viewBox="0 0 24 24" width="20" height="20" style="display: block; fill: #535353;">
-      <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.1.7.2.5-.1 1.1-.6 1.3-3.7 1.2-6.2 4.7-6.2 8.6 0 4.4 3.6 8 8 8 3.9 0 7.4-2.5 8.6-6.2.2-.5.7-.8 1.3-.6.5.2.8.7.7 1.1-.9 4.7-5 8.2-9.8 8.2-.4 0-.8 0-1.2-.2Z"/>
-    </svg>
-    <svg class="theme-icon-sun" viewBox="0 0 24 24" width="20" height="20" style="display: none; fill: #f1f3f4;">
-      <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm0-7a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 15a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1ZM4.22 4.22a1 1 0 0 1 1.42 0l1.41 1.41a1 1 0 1 1-1.41 1.42L4.22 5.64a1 1 0 0 1 0-1.42Zm12.73 12.73a1 1 0 0 1 1.41 0l1.42 1.41a1 1 0 1 1-1.42 1.42l-1.41-1.42a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm15 0a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1ZM5.64 16.97a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 0 1 1.42 0Zm12.72-12.75a1 1 0 0 1 0 1.42l-1.41 1.41a1 1 0 1 1-1.42-1.41l1.41-1.42a1 1 0 0 1 1.42 0Z"/>
-    </svg>
-  </button>
+  <div style="display: flex; gap: 8px;">
+    <button id="audio-toggle" aria-label="Sesi Kapat/Aç">
+      <svg class="audio-icon-on" viewBox="0 0 24 24" width="20" height="20" style="display: block; fill: currentColor;">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+      </svg>
+      <svg class="audio-icon-off" viewBox="0 0 24 24" width="20" height="20" style="display: none; fill: currentColor;">
+        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+      </svg>
+    </button>
+    <button id="theme-toggle" aria-label="Temayı Değiştir">
+      <svg class="theme-icon-moon" viewBox="0 0 24 24" width="20" height="20" style="display: block; fill: currentColor;">
+        <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.1.7.2.5-.1 1.1-.6 1.3-3.7 1.2-6.2 4.7-6.2 8.6 0 4.4 3.6 8 8 8 3.9 0 7.4-2.5 8.6-6.2.2-.5.7-.8 1.3-.6.5.2.8.7.7 1.1-.9 4.7-5 8.2-9.8 8.2-.4 0-.8 0-1.2-.2Z"/>
+      </svg>
+      <svg class="theme-icon-sun" viewBox="0 0 24 24" width="20" height="20" style="display: none; fill: currentColor;">
+        <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm0-7a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 15a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1ZM4.22 4.22a1 1 0 0 1 1.42 0l1.41 1.41a1 1 0 1 1-1.41 1.42L4.22 5.64a1 1 0 0 1 0-1.42Zm12.73 12.73a1 1 0 0 1 1.41 0l1.42 1.41a1 1 0 1 1-1.42 1.42l-1.41-1.42a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm15 0a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1ZM5.64 16.97a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 0 1 1.42 0Zm12.72-12.75a1 1 0 0 1 0 1.42l-1.41 1.41a1 1 0 1 1-1.42-1.41l1.41-1.42a1 1 0 0 1 1.42 0Z"/>
+      </svg>
+    </button>
+  </div>
 </div>
 
 <div id="game-wrapper">
   <canvas id="c" width="1000" height="300"></canvas>
   <div id="overlay">
-    <h1>DINO</h1>
-    <p>deadass google game</p>
+    <h1 id="overlay-title">DINO</h1>
+    <p id="overlay-sub">deadass google game</p>
+    
+    <div id="name-input-panel" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()" onpointerdown="event.stopPropagation()">
+      <div style="font-size: clamp(8px, 1.8vw, 10px); color: #d93025; margin-bottom: 6px; font-weight: bold; text-transform: uppercase;">KİŞİSEL VERİNİ PAYLAŞMA ENAYİ</div>
+      <div style="font-size: clamp(9px, 2.2vw, 11px); font-weight: bold; margin-bottom: 8px; color: inherit;" id="name-panel-title">YENİ REKOR! İSMİNİZ:</div>
+      <div style="display: flex; gap: 8px; justify-content: center;">
+        <input type="text" id="player-name" maxlength="10" placeholder="AAA" style="width: 100px; text-align: center; text-transform: uppercase; font-family: inherit; font-size: clamp(11px, 2.8vw, 13px); border: 1px solid #ccc; border-radius: 6px; padding: 6px; outline: none; background: inherit; color: inherit;" />
+        <button id="save-name-btn" type="button" style="font-family: inherit; font-size: clamp(11px, 2.8vw, 13px); padding: 6px 12px; border-radius: 6px; background: #535353; color: white; border: none; cursor: pointer; font-weight: bold;">KAYDET</button>
+      </div>
+    </div>
+
+    <div class="custom-selectors" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">
+      <div class="select-group">
+        <label for="dino-skin">AKSESUAR</label>
+        <select id="dino-skin">
+          <option value="none">Yok</option>
+          <option value="sunglasses">Gözlük</option>
+          <option value="partyhat">Şapka</option>
+        </select>
+      </div>
+      <div class="select-group">
+        <label for="theme-select">TEMA</label>
+        <select id="theme-select">
+          <option value="classic">Klasik</option>
+          <option value="matrix">Matrix</option>
+          <option value="cyberpunk">Cyberpunk</option>
+        </select>
+      </div>
+    </div>
+
     <div class="mode-selector" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">
       <span>Zıplama Modu:</span>
       <div class="segmented-control">
@@ -266,7 +678,39 @@
         <button type="button" class="mode-btn" data-value="dynamic">Dinamik</button>
       </div>
     </div>
-    <div class="hint">BAŞLAMAK İÇİN DOKUN / BOŞLUK</div>
+    <button id="share-btn" style="display: none;" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">SKORU PAYLAŞ</button>
+    <div class="hint" id="overlay-hint">BAŞLAMAK İÇİN DOKUN / BOŞLUK</div>
+  </div>
+
+  <div id="share-modal" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">
+    <div style="font-weight: bold; font-size: clamp(11px, 3.2vw, 14px); text-transform: uppercase;" id="share-modal-title">PAYLAŞIM KODU</div>
+    <p style="font-size: clamp(8px, 2.2vw, 10px); color: #666; max-width: 300px; text-align: center; line-height: 1.4;">Aşağıdaki kodu kopyalayarak arkadaşlarınızla paylaşabilirsiniz:</p>
+    <input type="text" id="share-code-input" readonly style="width: 80%; max-width: 300px; text-align: center; font-family: inherit; font-size: clamp(11px, 2.8vw, 13px); border: 1px solid #ccc; border-radius: 6px; padding: 6px; outline: none; background: #fafafa; color: #333; font-weight: bold; text-transform: uppercase;" />
+    <div style="display: flex; gap: 8px;">
+      <button id="copy-code-btn" type="button">KODU KOPYALA</button>
+      <button class="close-btn" id="close-share-btn">KAPAT</button>
+    </div>
+  </div>
+</div>
+
+<div id="leaderboard-section">
+  <h2>LİDERLİK TABLOSU</h2>
+  <table id="leaderboard-table">
+    <thead>
+      <tr>
+        <th style="width: 60px; text-align: center;">SIRA</th>
+        <th>OYUNCU</th>
+        <th style="text-align: right;">SKOR</th>
+      </tr>
+    </thead>
+    <tbody id="leaderboard-body">
+      <!-- High scores inserted here -->
+    </tbody>
+  </table>
+  
+  <div style="display: flex; gap: 8px; margin-top: 14px; width: 100%; max-width: 400px; justify-content: center; align-items: center; flex-wrap: wrap;" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">
+    <input type="text" id="import-code-input" placeholder="PAYLAŞIM KODU GİR" style="text-transform: uppercase; font-family: inherit; font-size: 11px; border: 1px solid #ccc; border-radius: 6px; padding: 6px 10px; outline: none; background: inherit; color: inherit; flex: 1; min-width: 140px; text-align: center;" />
+    <button id="import-code-btn" type="button">SKORU YÜKLE</button>
   </div>
 </div>
 
@@ -307,14 +751,86 @@ let isDarkMode = false;
 let isJumpingInput = false;
 let jumpMode = 'classic';
 
+const C_MATRIX = {
+  bg:     '#000000',
+  ground: '#00ff00',
+  dino:   '#00ff00',
+  obs:    '#00ff00',
+  cloud:  '#003300',
+  dot:    '#003300',
+};
+
+const C_CYBERPUNK = {
+  bg:     '#0f051d',
+  ground: '#ff007f',
+  dino:   '#00ffff',
+  obs:    '#ff007f',
+  cloud:  '#2a085c',
+  dot:    '#2a085c',
+};
+
+const SKIN_COLORS = {
+  sunglasses: {
+    classic: '#111111',
+    dark: '#ffffff',
+    matrix: '#00ff00',
+    cyberpunk: '#00ffff'
+  },
+  partyhat: {
+    classic: '#d93025',
+    dark: '#ff8a80',
+    matrix: '#00ff00',
+    cyberpunk: '#ff007f'
+  }
+};
+
+let currentThemeName = 'classic';
+let activeSkin = 'none';
+
+let isMuted = false;
+let audioCtx = null;
+
+let lastMilestone = 0;
+
 function setDarkMode(dark) {
   isDarkMode = dark;
-  if (dark) {
-    document.body.classList.add('dark-mode');
-    C = { ...C_DARK };
+  updateTheme();
+}
+
+function updateTheme() {
+  document.body.classList.remove('dark-mode', 'theme-matrix', 'theme-cyberpunk');
+  
+  if (currentThemeName === 'matrix') {
+    document.body.classList.add('theme-matrix');
+    C = { ...C_MATRIX };
+  } else if (currentThemeName === 'cyberpunk') {
+    document.body.classList.add('theme-cyberpunk');
+    C = { ...C_CYBERPUNK };
   } else {
-    document.body.classList.remove('dark-mode');
-    C = { ...C_LIGHT };
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      C = { ...C_DARK };
+    } else {
+      C = { ...C_LIGHT };
+    }
+  }
+  
+  const sunIcon = document.querySelector('.theme-icon-sun');
+  const moonIcon = document.querySelector('.theme-icon-moon');
+  if (isDarkMode) {
+    if (sunIcon) sunIcon.style.display = 'block';
+    if (moonIcon) moonIcon.style.display = 'none';
+  } else {
+    if (sunIcon) sunIcon.style.display = 'none';
+    if (moonIcon) moonIcon.style.display = 'block';
+  }
+  
+  localStorage.setItem('theme_name', currentThemeName);
+  localStorage.setItem('theme_dark', isDarkMode ? 'true' : 'false');
+  
+  const themeSelect = document.getElementById('theme-select');
+  if (themeSelect) {
+    themeSelect.value = currentThemeName;
   }
 }
 
@@ -322,12 +838,259 @@ let state = 'idle';
 let score = 0, hiScore = 0, frame = 0;
 let speed = 5;
 
+// Leaderboard Implementation
+let leaderboard = [];
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+}
+
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+}
+
+function playTone(freq, type, duration, slideTo) {
+  if (isMuted) return;
+  initAudio();
+  if (!audioCtx) return;
+
+  const osc = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+  
+  osc.type = type || 'sine';
+  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  
+  if (slideTo) {
+    osc.frequency.exponentialRampToValueAtTime(slideTo, audioCtx.currentTime + duration);
+  }
+  
+  gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.005, audioCtx.currentTime + duration);
+  
+  osc.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
+
+function playJumpSound() {
+  playTone(150, 'triangle', 0.15, 600);
+}
+
+function playCrashSound() {
+  playTone(200, 'sawtooth', 0.4, 20);
+}
+
+function playMilestoneSound() {
+  if (isMuted) return;
+  playTone(880, 'square', 0.08);
+  setTimeout(() => {
+    playTone(1200, 'square', 0.08);
+  }, 80);
+}
+
+function setMuted(muted) {
+  isMuted = muted;
+  localStorage.setItem('muted', isMuted ? 'true' : 'false');
+  const iconOn = document.querySelector('.audio-icon-on');
+  const iconOff = document.querySelector('.audio-icon-off');
+  if (iconOn && iconOff) {
+    if (isMuted) {
+      iconOn.style.display = 'none';
+      iconOff.style.display = 'block';
+    } else {
+      iconOn.style.display = 'block';
+      iconOff.style.display = 'none';
+    }
+  }
+}
+
+
+
+// Skin accessories helpers
+function getSkinColor(skinType) {
+  if (currentThemeName === 'matrix') return SKIN_COLORS[skinType].matrix;
+  if (currentThemeName === 'cyberpunk') return SKIN_COLORS[skinType].cyberpunk;
+  return isDarkMode ? SKIN_COLORS[skinType].dark : SKIN_COLORS[skinType].classic;
+}
+
+// anti-cheat cryptographic verification signature generator
+function generateSignature(name, scoreVal) {
+  const salt = 'D1n0S4urS3cr3tS4lt!';
+  const str = `${name}-${scoreVal}-${salt}`;
+  let hash = 5381;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 33) ^ str.charCodeAt(i);
+  }
+  return (hash >>> 0).toString(16).toUpperCase();
+}
+
+// Encodes name and score into a verified Base64 share code
+function encodeShareCode(name, scoreVal) {
+  const sig = generateSignature(name, scoreVal);
+  const rawStr = `${name}-${scoreVal}-${sig}`;
+  return btoa(rawStr);
+}
+
+// Decodes and verifies share code
+function decodeAndVerifyShareCode(codeStr) {
+  try {
+    const rawStr = atob(codeStr.trim());
+    const parts = rawStr.split('-');
+    if (parts.length === 3) {
+      const name = parts[0];
+      const scoreVal = parseInt(parts[1], 10);
+      const sig = parts[2];
+      
+      if (generateSignature(name, scoreVal) === sig) {
+        return { name, score: scoreVal };
+      }
+    }
+  } catch (e) {
+    // Decode failed
+  }
+  return null;
+}
+
+// Shared score loader
+function loadSharedScore(codeStr) {
+  if (!codeStr) return;
+  
+  // Clean up code: if it's a URL, extract the query param
+  let cleanCode = codeStr.trim();
+  if (cleanCode.includes('?share=')) {
+    const urlParts = cleanCode.split('?share=');
+    if (urlParts.length > 1) {
+      cleanCode = urlParts[1].split('&')[0];
+    }
+  }
+  
+  // Decode and verify
+  const verifiedData = decodeAndVerifyShareCode(cleanCode);
+  if (verifiedData) {
+    const { name, score: sharedScore } = verifiedData;
+    
+    // Add to local leaderboard
+    const saved = localStorage.getItem('leaderboard');
+    let currentLeaderboard = [];
+    if (saved) {
+      try { currentLeaderboard = JSON.parse(saved); } catch(e) {}
+    }
+    
+    currentLeaderboard.push({ name: name, score: sharedScore });
+    currentLeaderboard.sort((a, b) => b.score - a.score);
+    currentLeaderboard = currentLeaderboard.slice(0, 5);
+    
+    localStorage.setItem('leaderboard', JSON.stringify(currentLeaderboard));
+    
+    alert(`Tebrikler! ${name} kullanıcısının ${sharedScore} puanlık doğrulanmış skoru başarıyla yerel liderlik tablonuza eklendi!`);
+    
+    leaderboard = currentLeaderboard;
+    hiScore = leaderboard.length > 0 ? leaderboard[0].score : 0;
+    const hiEl = document.getElementById('hi');
+    if (hiEl) hiEl.textContent = hiScore.toString().padStart(5, '0');
+    renderLeaderboard();
+    
+    // Clear input field if it exists
+    const importInput = document.getElementById('import-code-input');
+    if (importInput) importInput.value = '';
+  } else {
+    alert('Hata: Geçersiz, bozulmuş veya hileli paylaşım kodu!');
+  }
+}
+
+// Share URL checker
+function checkShareUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const shareVal = params.get('share');
+  if (shareVal) {
+    loadSharedScore(shareVal);
+    // Clean URL
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, cleanUrl);
+  }
+}
+
+function renderLeaderboard() {
+  const tbody = document.getElementById('leaderboard-body');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  leaderboard.forEach((entry, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="text-align: center; font-weight: bold; color: ${idx === 0 ? '#d93025' : 'inherit'};">#${idx + 1}</td>
+      <td style="text-transform: uppercase;">${escapeHtml(entry.name)}</td>
+      <td style="text-align: right; font-weight: bold;">${entry.score.toString().padStart(5, '0')}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+async function loadLeaderboard() {
+  const saved = localStorage.getItem('leaderboard');
+  if (saved) {
+    try {
+      leaderboard = JSON.parse(saved);
+    } catch (e) {
+      leaderboard = [];
+    }
+  }
+  
+  if (!leaderboard || leaderboard.length === 0) {
+    try {
+      const response = await fetch('leaderboard.json');
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          leaderboard = data.map(item => ({
+            name: String(item.name || 'AAA').slice(0, 10).trim().toUpperCase(),
+            score: Math.max(0, parseInt(item.score, 10) || 0)
+          }));
+        }
+      }
+    } catch (e) {
+      console.warn('Could not fetch leaderboard.json (likely due to CORS or file:// limitations). Using static defaults.', e);
+    }
+    
+    if (!Array.isArray(leaderboard) || leaderboard.length === 0) {
+      leaderboard = [
+        { name: "Dino", score: 500 },
+        { name: "Rex", score: 400 },
+        { name: "Cera", score: 300 },
+        { name: "Spike", score: 200 },
+        { name: "Petrie", score: 100 }
+      ];
+    }
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+  }
+  
+  hiScore = leaderboard.length > 0 ? leaderboard[0].score : 0;
+  document.getElementById('hi').textContent = hiScore.toString().padStart(5, '0');
+  renderLeaderboard();
+}
+
+loadLeaderboard();
+
 const dino = {
   x: 80, y: GROUND, w: 44, h: 48,
   vy: 0, onGround: true,
   legPhase: 0,
   jump() {
-    if (this.onGround) { this.vy = -16; this.onGround = false; }
+    if (this.onGround) {
+      this.vy = -16;
+      this.onGround = false;
+      playJumpSound();
+    }
   },
   update() {
     if (!this.onGround) {
@@ -449,6 +1212,43 @@ function drawDino(d) {
       }
     }
   }
+
+  // Draw skin accessory if selected
+  if (activeSkin === 'sunglasses') {
+    const glassesColor = getSkinColor('sunglasses');
+    px(x + 16 * pixelSize, startY + 2 * pixelSize, pixelSize, pixelSize, glassesColor);
+    px(x + 17 * pixelSize, startY + 2 * pixelSize, pixelSize, pixelSize, glassesColor);
+    px(x + 18 * pixelSize, startY + 2 * pixelSize, pixelSize * 2, pixelSize, glassesColor);
+    px(x + 20 * pixelSize, startY + 2 * pixelSize, pixelSize, pixelSize, glassesColor);
+    px(x + 21 * pixelSize, startY + 2 * pixelSize, pixelSize * 2, pixelSize, glassesColor);
+    px(x + 18 * pixelSize, startY + 3 * pixelSize, pixelSize, pixelSize, glassesColor);
+    px(x + 21 * pixelSize, startY + 3 * pixelSize, pixelSize, pixelSize, glassesColor);
+  } else if (activeSkin === 'partyhat') {
+    const hatColor = getSkinColor('partyhat');
+    const detailColor = getSkinColor('sunglasses');
+    // Pom-pom
+    px(x + 20 * pixelSize, startY - 5 * pixelSize, pixelSize, pixelSize, detailColor);
+    // Tip
+    px(x + 20 * pixelSize, startY - 4 * pixelSize, pixelSize, pixelSize, hatColor);
+    // Row -3
+    px(x + 19 * pixelSize, startY - 3 * pixelSize, pixelSize, pixelSize, hatColor);
+    px(x + 20 * pixelSize, startY - 3 * pixelSize, pixelSize, pixelSize, detailColor);
+    px(x + 21 * pixelSize, startY - 3 * pixelSize, pixelSize, pixelSize, hatColor);
+    // Row -2
+    px(x + 18 * pixelSize, startY - 2 * pixelSize, pixelSize, pixelSize, hatColor);
+    px(x + 19 * pixelSize, startY - 2 * pixelSize, pixelSize, pixelSize, hatColor);
+    px(x + 20 * pixelSize, startY - 2 * pixelSize, pixelSize, pixelSize, hatColor);
+    px(x + 21 * pixelSize, startY - 2 * pixelSize, pixelSize, pixelSize, hatColor);
+    px(x + 22 * pixelSize, startY - 2 * pixelSize, pixelSize, pixelSize, hatColor);
+    // Row -1
+    px(x + 17 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, hatColor);
+    px(x + 18 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, detailColor);
+    px(x + 19 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, hatColor);
+    px(x + 20 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, hatColor);
+    px(x + 21 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, hatColor);
+    px(x + 22 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, detailColor);
+    px(x + 23 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, hatColor);
+  }
 }
 
 function drawCactus(o) {
@@ -532,6 +1332,13 @@ function loop() {
     }
 
     document.getElementById('score').textContent = Math.floor(score).toString().padStart(5, '0');
+
+    // Milestone sound trigger
+    const currentMilestone = Math.floor(score / 100) * 100;
+    if (currentMilestone > 0 && currentMilestone > lastMilestone) {
+      lastMilestone = currentMilestone;
+      playMilestoneSound();
+    }
   }
 
   for (const o of obstacles) {
@@ -542,26 +1349,80 @@ function loop() {
 
 function die() {
   state = 'dead';
-  hiScore = Math.max(hiScore, Math.floor(score));
+  const finalScore = Math.floor(score);
+  
+  // Play retro explosion crash sound
+  playCrashSound();
+
+
+
+  // Temporarily update high score display if beaten
+  hiScore = Math.max(hiScore, finalScore);
   document.getElementById('hi').textContent = hiScore.toString().padStart(5, '0');
+  
   const ov = document.getElementById('overlay');
+  const ovTitle = document.getElementById('overlay-title');
+  const ovSub = document.getElementById('overlay-sub');
+  const ovHint = document.getElementById('overlay-hint');
+  const namePanel = document.getElementById('name-input-panel');
+  const modeSel = document.querySelector('.mode-selector');
+  const shareBtn = document.getElementById('share-btn');
+  
   ov.style.display = 'flex';
-  ov.innerHTML = `<h1>GAME OVER</h1>
-    <p>SKORUN: ${Math.floor(score).toString().padStart(5,'0')}</p>
-    <div class="hint">YENİDEN BAŞLAMAK İÇİN DOKUN</div>`;
+  ovTitle.textContent = 'GAME OVER';
+  ovSub.textContent = `SKORUN: ${finalScore.toString().padStart(5,'0')}`;
+  
+  // Check if score qualifies for top 5 leaderboard
+  const qualifies = leaderboard.length < 5 || finalScore > leaderboard[leaderboard.length - 1].score;
+  
+  if (qualifies) {
+    if (modeSel) modeSel.style.display = 'none';
+    namePanel.style.display = 'block';
+    ovHint.style.display = 'none';
+    if (shareBtn) shareBtn.style.display = 'none'; // hide until saved
+    
+    // Focus name input after element is visible
+    const nameInput = document.getElementById('player-name');
+    nameInput.value = '';
+    setTimeout(() => nameInput.focus(), 100);
+  } else {
+    if (modeSel) modeSel.style.display = 'flex';
+    namePanel.style.display = 'none';
+    ovHint.textContent = 'YENİDEN BAŞLAMAK İÇİN DOKUN / BOŞLUK';
+    ovHint.style.display = 'block';
+    if (shareBtn) shareBtn.style.display = 'block'; // show directly
+  }
 }
 
 function startGame() {
+  // Prevent starting if score submission name entry panel is open
+  const namePanel = document.getElementById('name-input-panel');
+  if (namePanel && namePanel.style.display === 'block') return;
+
   state = 'running';
   score = 0; frame = 0; speed = 5;
   obstacles = []; nextObs = 80;
   dino.y = GROUND; dino.vy = 0; dino.onGround = true;
+  lastMilestone = 0;
+  
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn) shareBtn.style.display = 'none';
+
   document.getElementById('score').textContent = '00000';
   document.getElementById('overlay').style.display = 'none';
 }
 
 document.addEventListener('keydown', e => {
   if (e.code === 'Space' || e.code === 'ArrowUp') {
+    // Ignore input if user is typing name
+    if (document.activeElement === document.getElementById('player-name')) {
+      return;
+    }
+    const namePanel = document.getElementById('name-input-panel');
+    if (namePanel && namePanel.style.display === 'block') {
+      return;
+    }
+    
     e.preventDefault();
     isJumpingInput = true;
     if (state !== 'running') startGame(); else dino.jump();
@@ -578,16 +1439,40 @@ document.addEventListener('keyup', e => {
 document.addEventListener('pointerdown', e => {
   if (!e.isPrimary) return;
   if (e.button !== 0 && e.pointerType !== 'touch') return;
-  // Ignore clicks/touches on interactive controls (theme toggle / game modes)
-  if (e.target.closest('button') || e.target.closest('.mode-selector')) return;
+  // Ignore clicks/touches on interactive controls (theme toggle / game modes / name panel / leaderboard section / select inputs)
+  if (
+    e.target.closest('button') || 
+    e.target.closest('select') || 
+    e.target.closest('input') || 
+    e.target.closest('.custom-selectors') || 
+    e.target.closest('#share-modal') || 
+    e.target.closest('.mode-selector') || 
+    e.target.closest('#name-input-panel') || 
+    e.target.closest('#leaderboard-section')
+  ) return;
 
   isJumpingInput = true;
-  if (state !== 'running') startGame(); else dino.jump();
+  if (state !== 'running') {
+    const namePanel = document.getElementById('name-input-panel');
+    if (namePanel && namePanel.style.display === 'block') return;
+    startGame();
+  } else {
+    dino.jump();
+  }
 });
 
 document.addEventListener('pointerup', e => {
   if (!e.isPrimary) return;
-  if (e.target.closest('button') || e.target.closest('.mode-selector')) return;
+  if (
+    e.target.closest('button') || 
+    e.target.closest('select') || 
+    e.target.closest('input') || 
+    e.target.closest('.custom-selectors') || 
+    e.target.closest('#share-modal') || 
+    e.target.closest('.mode-selector') || 
+    e.target.closest('#name-input-panel') || 
+    e.target.closest('#leaderboard-section')
+  ) return;
   isJumpingInput = false;
 });
 
@@ -596,22 +1481,40 @@ document.addEventListener('pointercancel', e => {
   isJumpingInput = false;
 });
 
+// Theme toggle initialization and listeners
 const themeToggleBtn = document.getElementById('theme-toggle');
-const savedTheme = localStorage.getItem('theme');
-const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-  setDarkMode(true);
-} else {
-  setDarkMode(false);
-}
-
 themeToggleBtn.addEventListener('click', () => {
-  const newDark = !isDarkMode;
-  setDarkMode(newDark);
-  localStorage.setItem('theme', newDark ? 'dark' : 'light');
+  isDarkMode = !isDarkMode;
+  currentThemeName = 'classic'; // Reset to classic on toggle button click
+  updateTheme();
 });
 
+const themeSelect = document.getElementById('theme-select');
+if (themeSelect) {
+  themeSelect.addEventListener('change', (e) => {
+    currentThemeName = e.target.value;
+    updateTheme();
+  });
+}
+
+// Skin initialization and listener
+const skinSelect = document.getElementById('dino-skin');
+if (skinSelect) {
+  skinSelect.addEventListener('change', (e) => {
+    activeSkin = e.target.value;
+    localStorage.setItem('dino_skin', activeSkin);
+  });
+}
+
+// Audio mute button listener
+const audioToggleBtn = document.getElementById('audio-toggle');
+if (audioToggleBtn) {
+  audioToggleBtn.addEventListener('click', () => {
+    setMuted(!isMuted);
+  });
+}
+
+// Mode Buttons segmented control
 const modeBtns = document.querySelectorAll('.mode-btn');
 modeBtns.forEach(btn => {
   const selectMode = (e) => {
@@ -623,6 +1526,168 @@ modeBtns.forEach(btn => {
   btn.addEventListener('click', selectMode);
   btn.addEventListener('touchstart', selectMode, { passive: false });
 });
+
+// Share button click (Show share link & code)
+const shareBtn = document.getElementById('share-btn');
+if (shareBtn) {
+  shareBtn.addEventListener('click', () => {
+    const finalScore = Math.floor(score);
+    const nameInput = document.getElementById('player-name');
+    let name = 'AAA';
+    
+    const namePanel = document.getElementById('name-input-panel');
+    if (namePanel && namePanel.style.display === 'block') {
+      name = nameInput.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (!name) name = 'AAA';
+    } else {
+      name = localStorage.getItem('last_player_name') || 'AAA';
+    }
+    
+    // Set verified secure code in input field
+    const shareCodeInput = document.getElementById('share-code-input');
+    if (shareCodeInput) {
+      shareCodeInput.value = encodeShareCode(name, finalScore);
+    }
+    
+    document.getElementById('share-modal').style.display = 'flex';
+  });
+}
+
+// Copy sharing code button
+const copyCodeBtn = document.getElementById('copy-code-btn');
+if (copyCodeBtn) {
+  copyCodeBtn.addEventListener('click', () => {
+    const input = document.getElementById('share-code-input');
+    if (input) {
+      input.select();
+      input.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(input.value).then(() => {
+        const originalText = copyCodeBtn.textContent;
+        copyCodeBtn.textContent = 'KOPYALANDI!';
+        setTimeout(() => {
+          copyCodeBtn.textContent = originalText;
+        }, 1500);
+      }).catch(err => {
+        console.error('Copy failed: ', err);
+      });
+    }
+  });
+}
+
+// Close Share Modal button
+const closeShareBtn = document.getElementById('close-share-btn');
+if (closeShareBtn) {
+  closeShareBtn.addEventListener('click', () => {
+    document.getElementById('share-modal').style.display = 'none';
+  });
+}
+
+// Import code event listeners
+const importBtn = document.getElementById('import-code-btn');
+if (importBtn) {
+  importBtn.addEventListener('click', () => {
+    const codeVal = document.getElementById('import-code-input').value;
+    loadSharedScore(codeVal);
+  });
+}
+
+const importInput = document.getElementById('import-code-input');
+if (importInput) {
+  importInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      loadSharedScore(importInput.value);
+    }
+  });
+}
+
+function saveScore() {
+  const nameInput = document.getElementById('player-name');
+  let name = nameInput.value.trim().toUpperCase();
+  name = name.replace(/[^A-Z0-9]/g, '');
+  if (!name) name = 'AAA';
+  
+  localStorage.setItem('last_player_name', name);
+  
+  const finalScore = Math.floor(score);
+  
+  leaderboard.push({ name: name, score: finalScore });
+  leaderboard.sort((a, b) => b.score - a.score);
+  leaderboard = leaderboard.slice(0, 5);
+  
+  localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+  
+  hiScore = leaderboard[0].score;
+  document.getElementById('hi').textContent = hiScore.toString().padStart(5, '0');
+  
+  renderLeaderboard();
+  
+  const namePanel = document.getElementById('name-input-panel');
+  namePanel.style.display = 'none';
+  
+  const ovHint = document.getElementById('overlay-hint');
+  ovHint.textContent = 'YENİDEN BAŞLAMAK İÇİN DOKUN / BOŞLUK';
+  ovHint.style.display = 'block';
+  
+  const shareBtn = document.getElementById('share-btn');
+  if (shareBtn) shareBtn.style.display = 'block';
+  
+  const modeSel = document.querySelector('.mode-selector');
+  if (modeSel) modeSel.style.display = 'flex';
+}
+
+document.getElementById('save-name-btn').addEventListener('click', saveScore);
+document.getElementById('player-name').addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    saveScore();
+  }
+});
+document.getElementById('player-name').addEventListener('input', e => {
+  e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
+});
+
+// Setup audio activation on first user interaction (browser policy)
+function tryUnlockAudio() {
+  initAudio();
+  document.removeEventListener('keydown', tryUnlockAudio);
+  document.removeEventListener('pointerdown', tryUnlockAudio);
+}
+document.addEventListener('keydown', tryUnlockAudio);
+document.addEventListener('pointerdown', tryUnlockAudio);
+
+// Initialize all features on load
+function initCustomization() {
+  // Theme init
+  const savedThemeName = localStorage.getItem('theme_name') || 'classic';
+  const savedThemeDark = localStorage.getItem('theme_dark');
+  
+  if (savedThemeDark === 'true') {
+    isDarkMode = true;
+  } else if (savedThemeDark === 'false') {
+    isDarkMode = false;
+  } else {
+    isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  
+  currentThemeName = savedThemeName;
+  updateTheme();
+  
+  // Skin init
+  const savedSkin = localStorage.getItem('dino_skin') || 'none';
+  activeSkin = savedSkin;
+  const skinSelect = document.getElementById('dino-skin');
+  if (skinSelect) skinSelect.value = activeSkin;
+  
+  // Audio init
+  const savedMuted = localStorage.getItem('muted') === 'true';
+  setMuted(savedMuted);
+  
+
+  
+  // Scan shared scores URL parameters
+  checkShareUrl();
+}
+
+initCustomization();
 
 loop();
 </script>

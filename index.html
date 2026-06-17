@@ -213,6 +213,29 @@
     color: #f1f3f4;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
+
+  /* Mobile Portrait Layout & Styling Adjustments */
+  @media (max-width: 768px) {
+    body {
+      padding: 16px;
+    }
+
+    #game-wrapper {
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      border-color: #e0e0e0;
+    }
+
+    body.dark-mode #game-wrapper {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border-color: #3c4043;
+    }
+
+    #top-bar {
+      padding: 0 4px;
+      margin-bottom: 12px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -249,6 +272,14 @@
 
 <script>
 const canvas = document.getElementById('c');
+
+// Check if mobile portrait screen
+const isMobilePortrait = window.innerWidth < 768 && window.innerHeight > window.innerWidth;
+if (isMobilePortrait) {
+  canvas.width = 600;
+  canvas.height = 400; // More portrait aspect ratio (3:2) compared to desktop (10:3)
+}
+
 const ctx = canvas.getContext('2d');
 const W = canvas.width, H = canvas.height;
 const GROUND = H - 40;
@@ -543,18 +574,27 @@ document.addEventListener('keyup', e => {
   }
 });
 
-let touchStartY = 0;
-canvas.addEventListener('touchstart', e => {
-  e.preventDefault();
-  touchStartY = e.touches[0].clientY;
+// Screen-wide click/touch pointer events to jump
+document.addEventListener('pointerdown', e => {
+  if (!e.isPrimary) return;
+  if (e.button !== 0 && e.pointerType !== 'touch') return;
+  // Ignore clicks/touches on interactive controls (theme toggle / game modes)
+  if (e.target.closest('button') || e.target.closest('.mode-selector')) return;
+
   isJumpingInput = true;
   if (state !== 'running') startGame(); else dino.jump();
-}, { passive: false });
+});
 
-canvas.addEventListener('touchend', e => {
-  e.preventDefault();
+document.addEventListener('pointerup', e => {
+  if (!e.isPrimary) return;
+  if (e.target.closest('button') || e.target.closest('.mode-selector')) return;
   isJumpingInput = false;
-}, { passive: false });
+});
+
+document.addEventListener('pointercancel', e => {
+  if (!e.isPrimary) return;
+  isJumpingInput = false;
+});
 
 const themeToggleBtn = document.getElementById('theme-toggle');
 const savedTheme = localStorage.getItem('theme');

@@ -287,6 +287,34 @@
     border-bottom: 1px solid #eee;
   }
 
+  .lb-share-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: background 0.2s, color 0.2s;
+    vertical-align: middle;
+  }
+
+  .lb-share-btn:hover {
+    background: rgba(0,0,0,0.07);
+    color: #111;
+  }
+
+  body.dark-mode .lb-share-btn {
+    color: #acb0b6;
+  }
+
+  body.dark-mode .lb-share-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: #f1f3f4;
+  }
+
   body.dark-mode #leaderboard-table th, body.dark-mode #leaderboard-table td {
     border-bottom-color: #3c4043;
   }
@@ -403,6 +431,69 @@
     color: #202124;
   }
 
+  #dismiss-share-btn {
+    margin-top: 6px;
+    font-family: inherit;
+    font-size: clamp(10px, 2.8vw, 12px);
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: none;
+    border: 1px solid #535353;
+    color: #535353;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  body.dark-mode #dismiss-share-btn {
+    border-color: #acb0b6;
+    color: #acb0b6;
+  }
+
+  #leaderboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    position: relative;
+  }
+
+  #leaderboard-toggle-btn {
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: background 0.2s;
+  }
+
+  #leaderboard-toggle-btn:hover {
+    background: rgba(0,0,0,0.05);
+  }
+
+  body.dark-mode #leaderboard-toggle-btn {
+    color: #acb0b6;
+  }
+
+  body.dark-mode #leaderboard-toggle-btn:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  #leaderboard-toggle-btn svg {
+    transition: transform 0.2s;
+  }
+
+  #leaderboard-toggle-btn.collapsed svg {
+    transform: rotate(180deg);
+  }
+
   .custom-selectors {
     display: flex;
     gap: 12px;
@@ -494,11 +585,14 @@
   body.theme-matrix .mode-btn,
   body.theme-matrix #theme-toggle,
   body.theme-matrix #audio-toggle,
+  body.theme-matrix #leaderboard-toggle-btn,
   body.theme-matrix #save-name-btn,
   body.theme-matrix #share-btn,
+  body.theme-matrix #dismiss-share-btn,
   body.theme-matrix #import-code-btn,
   body.theme-matrix #copy-code-btn,
-  body.theme-matrix .close-btn {
+  body.theme-matrix .close-btn,
+  body.theme-matrix .lb-share-btn {
     border: 1px solid #00ff00 !important;
     color: #00ff00 !important;
     background: #000000 !important;
@@ -562,11 +656,14 @@
   body.theme-cyberpunk .mode-btn,
   body.theme-cyberpunk #theme-toggle,
   body.theme-cyberpunk #audio-toggle,
+  body.theme-cyberpunk #leaderboard-toggle-btn,
   body.theme-cyberpunk #save-name-btn,
   body.theme-cyberpunk #share-btn,
+  body.theme-cyberpunk #dismiss-share-btn,
   body.theme-cyberpunk #import-code-btn,
   body.theme-cyberpunk #copy-code-btn,
-  body.theme-cyberpunk .close-btn {
+  body.theme-cyberpunk .close-btn,
+  body.theme-cyberpunk .lb-share-btn {
     border: 1px solid #ff007f !important;
     color: #00ffff !important;
     background: #0f051d !important;
@@ -582,31 +679,219 @@
     border-bottom-color: #2a085c !important;
   }
 
-  /* Mobile Portrait Layout & Styling Adjustments */
+  /* ── Tablet (≤ 1024px) ─────────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    body {
+      padding: 12px 20px;
+      overflow-y: auto;
+      justify-content: flex-start;
+      padding-top: 20px;
+    }
+
+    #top-bar {
+      padding: 0 8px;
+    }
+
+    #leaderboard-section {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+
+    #leaderboard-table {
+      max-width: 360px;
+    }
+
+    .segmented-control {
+      width: 220px;
+    }
+  }
+
+  /* ── Mobile landscape / small tablet (≤ 768px) ──────────────────────── */
   @media (max-width: 768px) {
     body {
-      padding: 16px;
-    }
-
-    #game-wrapper {
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-      border-color: #e0e0e0;
-    }
-
-    body.dark-mode #game-wrapper {
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      border-color: #3c4043;
+      padding: 12px;
+      overflow-y: auto;
+      justify-content: flex-start;
+      padding-top: 16px;
     }
 
     #top-bar {
       padding: 0 4px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+    }
+
+    #game-wrapper {
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+      border-color: #e0e0e0;
+    }
+
+    body.dark-mode #game-wrapper {
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+      border-color: #3c4043;
+    }
+
+    #overlay {
+      gap: 8px;
     }
 
     #leaderboard-section {
-      border-radius: 16px;
+      border-radius: 12px;
       padding: 12px;
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
+    #leaderboard-table {
+      max-width: 100%;
+    }
+
+    #leaderboard-table th, #leaderboard-table td {
+      padding: 7px 8px;
+    }
+
+    .segmented-control {
+      width: 200px;
+    }
+
+    .mode-btn {
+      padding: 8px 12px;
+    }
+
+    #name-input-panel {
+      padding: 10px 14px;
+    }
+
+    .custom-selectors {
+      gap: 8px;
+    }
+  }
+
+  /* ── Mobile portrait (≤ 480px) ──────────────────────────────────────── */
+  @media (max-width: 480px) {
+    body {
+      padding: 8px;
+      padding-top: 12px;
+    }
+
+    #top-bar {
+      padding: 0 2px;
+      margin-bottom: 8px;
+    }
+
+    #score-board {
+      gap: 14px;
+      font-size: clamp(10px, 3.5vw, 13px);
+    }
+
+    #game-wrapper {
+      border-radius: 10px;
+    }
+
+    #overlay {
+      gap: 6px;
+      padding: 8px;
+    }
+
+    #overlay h1 {
+      font-size: clamp(14px, 5vw, 20px);
+    }
+
+    #leaderboard-section {
+      border-radius: 10px;
+      padding: 10px 8px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    #leaderboard-section h2 {
+      font-size: clamp(11px, 4vw, 14px);
+      margin-bottom: 8px;
+    }
+
+    #leaderboard-table th, #leaderboard-table td {
+      padding: 6px 6px;
+      font-size: clamp(10px, 3.2vw, 12px);
+    }
+
+    .segmented-control {
+      width: 180px;
+    }
+
+    .mode-btn {
+      padding: 8px 8px;
+      font-size: clamp(10px, 3.5vw, 13px);
+    }
+
+    #name-input-panel {
+      padding: 8px 10px;
+      width: calc(100% - 8px);
+    }
+
+    #player-name {
+      width: 80px;
+    }
+
+    .custom-selectors {
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .select-group select {
+      font-size: 10px;
+      padding: 3px 6px;
+    }
+
+    #share-btn, #dismiss-share-btn {
+      font-size: clamp(9px, 3vw, 12px);
+      padding: 5px 10px;
+    }
+
+    #import-code-input {
+      font-size: 10px;
+      padding: 5px 8px;
+    }
+
+    #import-code-btn {
+      font-size: 10px;
+      padding: 5px 8px;
+      white-space: nowrap;
+    }
+
+    #share-code-input {
+      font-size: clamp(10px, 3vw, 13px);
+    }
+  }
+
+  /* ── Very small phones (≤ 360px) ────────────────────────────────────── */
+  @media (max-width: 360px) {
+    body {
+      padding: 6px;
+      padding-top: 8px;
+    }
+
+    #score-board {
+      gap: 10px;
+    }
+
+    .segmented-control {
+      width: 160px;
+    }
+
+    .mode-btn {
+      padding: 7px 6px;
+    }
+
+    #leaderboard-table th, #leaderboard-table td {
+      padding: 5px 4px;
+    }
+
+    #name-input-panel {
+      width: 100%;
+    }
+
+    #player-name {
+      width: 70px;
     }
   }
 </style>
@@ -649,6 +934,7 @@
       <div style="display: flex; gap: 8px; justify-content: center;">
         <input type="text" id="player-name" maxlength="10" placeholder="AAA" style="width: 100px; text-align: center; text-transform: uppercase; font-family: inherit; font-size: clamp(11px, 2.8vw, 13px); border: 1px solid #ccc; border-radius: 6px; padding: 6px; outline: none; background: inherit; color: inherit;" />
         <button id="save-name-btn" type="button" style="font-family: inherit; font-size: clamp(11px, 2.8vw, 13px); padding: 6px 12px; border-radius: 6px; background: #535353; color: white; border: none; cursor: pointer; font-weight: bold;">KAYDET</button>
+        <button id="skip-save-btn" type="button" class="close-btn" style="font-size: clamp(11px, 2.8vw, 13px); padding: 6px 12px;">KAYDETME</button>
       </div>
     </div>
 
@@ -657,8 +943,12 @@
         <label for="dino-skin">AKSESUAR</label>
         <select id="dino-skin">
           <option value="none">Yok</option>
-          <option value="sunglasses">Gözlük</option>
-          <option value="partyhat">Şapka</option>
+          <option value="sunglasses">Güneş Gözlüğü</option>
+          <option value="partyhat">Parti Şapkası</option>
+          <option value="cowboy">Kovboy Şapkası</option>
+          <option value="crown">Taç</option>
+          <option value="mohawk">Mohawk</option>
+          <option value="snail">Salyangoz</option>
         </select>
       </div>
       <div class="select-group">
@@ -678,7 +968,10 @@
         <button type="button" class="mode-btn" data-value="dynamic">Dinamik</button>
       </div>
     </div>
-    <button id="share-btn" style="display: none;" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">SKORU PAYLAŞ</button>
+    <div id="share-btn-row" style="display: none; align-items: center; gap: 6px;" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">
+      <button id="share-btn" type="button">SKORU PAYLAŞ</button>
+      <button id="dismiss-share-btn" type="button" aria-label="Kapat" title="Kapat">×</button>
+    </div>
     <div class="hint" id="overlay-hint">BAŞLAMAK İÇİN DOKUN / BOŞLUK</div>
   </div>
 
@@ -694,23 +987,33 @@
 </div>
 
 <div id="leaderboard-section">
-  <h2>LİDERLİK TABLOSU</h2>
-  <table id="leaderboard-table">
-    <thead>
-      <tr>
-        <th style="width: 60px; text-align: center;">SIRA</th>
-        <th>OYUNCU</th>
-        <th style="text-align: right;">SKOR</th>
-      </tr>
-    </thead>
-    <tbody id="leaderboard-body">
-      <!-- High scores inserted here -->
-    </tbody>
-  </table>
-  
-  <div style="display: flex; gap: 8px; margin-top: 14px; width: 100%; max-width: 400px; justify-content: center; align-items: center; flex-wrap: wrap;" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">
-    <input type="text" id="import-code-input" placeholder="PAYLAŞIM KODU GİR" style="text-transform: uppercase; font-family: inherit; font-size: 11px; border: 1px solid #ccc; border-radius: 6px; padding: 6px 10px; outline: none; background: inherit; color: inherit; flex: 1; min-width: 140px; text-align: center;" />
-    <button id="import-code-btn" type="button">SKORU YÜKLE</button>
+  <div id="leaderboard-header">
+    <h2>LİDERLİK TABLOSU</h2>
+    <button id="leaderboard-toggle-btn" type="button" aria-label="Liderlik Tablosunu Aç/Kapat" title="Liderlik Tablosunu Aç/Kapat">
+      <svg viewBox="0 0 24 24" width="18" height="18" style="display: block; fill: currentColor;">
+        <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
+      </svg>
+    </button>
+  </div>
+  <div id="leaderboard-content" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+    <table id="leaderboard-table">
+      <thead>
+        <tr>
+          <th style="width: 60px; text-align: center;">SIRA</th>
+          <th>OYUNCU</th>
+          <th style="text-align: right;">SKOR</th>
+          <th style="width: 36px;"></th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body">
+        <!-- High scores inserted here -->
+      </tbody>
+    </table>
+
+    <div style="display: flex; gap: 8px; margin-top: 14px; width: 100%; max-width: 400px; justify-content: center; align-items: center; flex-wrap: wrap;" onmousedown="event.stopPropagation()" ontouchstart="event.stopPropagation()">
+      <input type="text" id="import-code-input" placeholder="PAYLAŞIM KODU GİR" style="text-transform: uppercase; font-family: inherit; font-size: 11px; border: 1px solid #ccc; border-radius: 6px; padding: 6px 10px; outline: none; background: inherit; color: inherit; flex: 1; min-width: 140px; text-align: center;" />
+      <button id="import-code-btn" type="button">SKORU YÜKLE</button>
+    </div>
   </div>
 </div>
 
@@ -781,6 +1084,30 @@ const SKIN_COLORS = {
     dark: '#ff8a80',
     matrix: '#00ff00',
     cyberpunk: '#ff007f'
+  },
+  cowboy: {
+    classic: '#8B4513',
+    dark: '#cd853f',
+    matrix: '#00ff00',
+    cyberpunk: '#ff007f'
+  },
+  crown: {
+    classic: '#FFD700',
+    dark: '#FFD700',
+    matrix: '#00ff00',
+    cyberpunk: '#ffff00'
+  },
+  mohawk: {
+    classic: '#ff4444',
+    dark: '#ff6666',
+    matrix: '#00ff00',
+    cyberpunk: '#ff007f'
+  },
+  snail: {
+    classic: '#c8a96e',
+    dark: '#d4b483',
+    matrix: '#00ff00',
+    cyberpunk: '#ff007f'
   }
 };
 
@@ -791,6 +1118,55 @@ let isMuted = false;
 let audioCtx = null;
 
 let lastMilestone = 0;
+
+// ───────── Parçacık sistemi ─────────
+let particles = [];
+function spawnParticles(x, y, count, colors, vxRange, vyRange, lifeRange) {
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: x + (Math.random() - 0.5) * 10,
+      y: y,
+      vx: vxRange[0] + Math.random() * (vxRange[1] - vxRange[0]),
+      vy: vyRange[0] + Math.random() * (vyRange[1] - vyRange[0]),
+      life: lifeRange[0] + Math.random() * (lifeRange[1] - lifeRange[0]),
+      maxLife: 0,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      size: 1 + Math.random() * 2,
+    });
+    particles[particles.length - 1].maxLife = particles[particles.length - 1].life;
+  }
+}
+function updateAndDrawParticles() {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.15; // yerçekimi
+    p.life--;
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+    const alpha = p.life / p.maxLife;
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = p.color;
+    ctx.fillRect(Math.round(p.x), Math.round(p.y), Math.ceil(p.size), Math.ceil(p.size));
+  }
+  ctx.globalAlpha = 1;
+}
+
+// ───────── Gece/Gündüz döngüsü ─────────
+// Sadece klasik/dark temada aktiftir; matrix/cyberpunk kendi renklerini korur.
+// cycle: 0=tam gündüz, 0.5=tam gece, sinüs dalgası ile gider
+let dayNightT = 0;         // 0..1 arası: 0=gündüz, 1=gece
+let dayNightDir = 1;       // +1=kararmaya gidiyor, -1=aydınlanıyor
+let lastDayNightScore = 0; // son geçiş skoru
+const DAY_NIGHT_INTERVAL = 300; // kaç skorluk aralıkla geçiş
+const DAY_NIGHT_SPEED = 0.004;  // geçiş hızı
+
+// Yıldızlar (bir kere oluştur)
+const STARS = Array.from({length: 40}, () => ({
+  x: Math.random(),
+  y: Math.random() * 0.55,
+  r: 0.5 + Math.random() * 1.5,
+}));
 
 function setDarkMode(dark) {
   isDarkMode = dark;
@@ -838,8 +1214,31 @@ let state = 'idle';
 let score = 0, hiScore = 0, frame = 0;
 let speed = 5;
 
+// Three-phase speed curve — no hard ceiling, growth slows logarithmically after score 2000
+function calcSpeed(s) {
+  if (s < 500)  return 5 + s * 0.01;                         // 5 → 10
+  if (s < 2000) return 10 + (s - 500) * (8 / 1500);         // 10 → 18
+  return 18 + Math.log2(1 + (s - 2000) / 500) * 2;          // 18 → ∞ (slow log growth)
+}
+
 // Leaderboard Implementation
 let leaderboard = [];
+
+// Cached DOM refs — avoids repeated getElementById in the hot game loop and handlers
+const elScore       = document.getElementById('score');
+const elHi          = document.getElementById('hi');
+const elOverlay     = document.getElementById('overlay');
+const elOvTitle     = document.getElementById('overlay-title');
+const elOvSub       = document.getElementById('overlay-sub');
+const elOvHint      = document.getElementById('overlay-hint');
+const elNamePanel   = document.getElementById('name-input-panel');
+const elShareBtnRow = document.getElementById('share-btn-row');
+const elPlayerName  = document.getElementById('player-name');
+const elShareModal  = document.getElementById('share-modal');
+const elShareCode   = document.getElementById('share-code-input');
+const elImportInput = document.getElementById('import-code-input');
+const elLbBody      = document.getElementById('leaderboard-body');
+const elModeSel     = document.querySelector('.mode-selector');
 
 function escapeHtml(str) {
   return str.replace(/&/g, "&amp;")
@@ -935,17 +1334,26 @@ function generateSignature(name, scoreVal) {
   return (hash >>> 0).toString(16).toUpperCase();
 }
 
+// UTF-8 safe base64 helpers using modern TextEncoder/TextDecoder
+function utf8ToBase64(str) {
+  return btoa(String.fromCharCode(...new TextEncoder().encode(str)));
+}
+
+function base64ToUtf8(str) {
+  return new TextDecoder().decode(Uint8Array.from(atob(str), c => c.charCodeAt(0)));
+}
+
 // Encodes name and score into a verified Base64 share code
 function encodeShareCode(name, scoreVal) {
   const sig = generateSignature(name, scoreVal);
   const rawStr = `${name}-${scoreVal}-${sig}`;
-  return btoa(rawStr);
+  return utf8ToBase64(rawStr);
 }
 
 // Decodes and verifies share code
 function decodeAndVerifyShareCode(codeStr) {
   try {
-    const rawStr = atob(codeStr.trim());
+    const rawStr = base64ToUtf8(codeStr.trim());
     const parts = rawStr.split('-');
     if (parts.length === 3) {
       const name = parts[0];
@@ -997,13 +1405,9 @@ function loadSharedScore(codeStr) {
     
     leaderboard = currentLeaderboard;
     hiScore = leaderboard.length > 0 ? leaderboard[0].score : 0;
-    const hiEl = document.getElementById('hi');
-    if (hiEl) hiEl.textContent = hiScore.toString().padStart(5, '0');
+    elHi.textContent = hiScore.toString().padStart(5, '0');
     renderLeaderboard();
-    
-    // Clear input field if it exists
-    const importInput = document.getElementById('import-code-input');
-    if (importInput) importInput.value = '';
+    elImportInput.value = '';
   } else {
     alert('Hata: Geçersiz, bozulmuş veya hileli paylaşım kodu!');
   }
@@ -1021,20 +1425,37 @@ function checkShareUrl() {
   }
 }
 
+function openShareModal(name, scoreVal) {
+  elShareCode.value = encodeShareCode(name, scoreVal);
+  elShareModal.style.display = 'flex';
+}
+
+const SHARE_ICON_SVG = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>`;
+
 function renderLeaderboard() {
-  const tbody = document.getElementById('leaderboard-body');
-  if (!tbody) return;
-  tbody.innerHTML = '';
+  elLbBody.innerHTML = '';
   leaderboard.forEach((entry, idx) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td style="text-align: center; font-weight: bold; color: ${idx === 0 ? '#d93025' : 'inherit'};">#${idx + 1}</td>
       <td style="text-transform: uppercase;">${escapeHtml(entry.name)}</td>
       <td style="text-align: right; font-weight: bold;">${entry.score.toString().padStart(5, '0')}</td>
+      <td style="text-align: center; padding: 4px 6px;">
+        <button class="lb-share-btn" type="button" title="Bu skoru paylaş" data-idx="${idx}">${SHARE_ICON_SVG}</button>
+      </td>
     `;
-    tbody.appendChild(tr);
+    elLbBody.appendChild(tr);
   });
 }
+
+// Single delegated listener for all leaderboard share buttons
+elLbBody.addEventListener('click', e => {
+  const btn = e.target.closest('.lb-share-btn');
+  if (!btn) return;
+  e.stopPropagation();
+  const entry = leaderboard[parseInt(btn.dataset.idx, 10)];
+  if (entry) openShareModal(entry.name, entry.score);
+});
 
 async function loadLeaderboard() {
   const saved = localStorage.getItem('leaderboard');
@@ -1075,7 +1496,7 @@ async function loadLeaderboard() {
   }
   
   hiScore = leaderboard.length > 0 ? leaderboard[0].score : 0;
-  document.getElementById('hi').textContent = hiScore.toString().padStart(5, '0');
+  elHi.textContent = hiScore.toString().padStart(5, '0');
   renderLeaderboard();
 }
 
@@ -1099,7 +1520,7 @@ const dino = {
       this.y += this.vy;
       if (this.y >= GROUND) { this.y = GROUND; this.vy = 0; this.onGround = true; }
     }
-    if (this.onGround) this.legPhase += 0.25;
+    if (this.onGround) this.legPhase += Math.min(0.55, 0.15 + speed * 0.02);
   },
   get top()    { return this.y - this.h; },
   get right()  { return this.x + this.w - 6; },
@@ -1215,14 +1636,48 @@ function drawDino(d) {
 
   // Draw skin accessory if selected
   if (activeSkin === 'sunglasses') {
-    const glassesColor = getSkinColor('sunglasses');
-    px(x + 16 * pixelSize, startY + 2 * pixelSize, pixelSize, pixelSize, glassesColor);
-    px(x + 17 * pixelSize, startY + 2 * pixelSize, pixelSize, pixelSize, glassesColor);
-    px(x + 18 * pixelSize, startY + 2 * pixelSize, pixelSize * 2, pixelSize, glassesColor);
-    px(x + 20 * pixelSize, startY + 2 * pixelSize, pixelSize, pixelSize, glassesColor);
-    px(x + 21 * pixelSize, startY + 2 * pixelSize, pixelSize * 2, pixelSize, glassesColor);
-    px(x + 18 * pixelSize, startY + 3 * pixelSize, pixelSize, pixelSize, glassesColor);
-    px(x + 21 * pixelSize, startY + 3 * pixelSize, pixelSize, pixelSize, glassesColor);
+    const frameColor = getSkinColor('sunglasses');
+    // Lens tint rengi - koyu cam efekti
+    const lensColor = currentThemeName === 'matrix' ? '#005500'
+                    : currentThemeName === 'cyberpunk' ? '#004444'
+                    : isDarkMode ? '#555555' : '#222244';
+    // --- Sol cam ---
+    px(x + 15*pixelSize, startY + 1*pixelSize, 5*pixelSize, pixelSize, frameColor);
+    px(x + 14*pixelSize, startY + 2*pixelSize, pixelSize, 3*pixelSize, frameColor);
+    px(x + 20*pixelSize, startY + 2*pixelSize, pixelSize, 3*pixelSize, frameColor);
+    px(x + 15*pixelSize, startY + 5*pixelSize, 5*pixelSize, pixelSize, frameColor);
+    px(x + 15*pixelSize, startY + 2*pixelSize, 5*pixelSize, 3*pixelSize, lensColor);
+    // --- Burun köprüsü ---
+    px(x + 20*pixelSize, startY + 3*pixelSize, 2*pixelSize, pixelSize, frameColor);
+    // --- Sağ cam ---
+    px(x + 22*pixelSize, startY + 1*pixelSize, 5*pixelSize, pixelSize, frameColor);
+    px(x + 21*pixelSize, startY + 2*pixelSize, pixelSize, 3*pixelSize, frameColor);
+    px(x + 27*pixelSize, startY + 2*pixelSize, pixelSize, 3*pixelSize, frameColor);
+    px(x + 22*pixelSize, startY + 5*pixelSize, 5*pixelSize, pixelSize, frameColor);
+    px(x + 22*pixelSize, startY + 2*pixelSize, 5*pixelSize, 3*pixelSize, lensColor);
+    // --- Kulak çubukları ---
+    px(x + 13*pixelSize, startY + 2*pixelSize, pixelSize, 2*pixelSize, frameColor);
+    px(x + 28*pixelSize, startY + 2*pixelSize, pixelSize, 2*pixelSize, frameColor);
+
+    // --- Animasyonlu cam parlaması (glint) ---
+    const highlightColor = currentThemeName === 'matrix' ? '#00aa00'
+                         : currentThemeName === 'cyberpunk' ? '#00aaaa'
+                         : isDarkMode ? '#aaaacc' : '#6666aa';
+    // Sabit köşe parlama
+    px(x + 15*pixelSize, startY + 2*pixelSize, pixelSize, pixelSize, highlightColor);
+    px(x + 22*pixelSize, startY + 2*pixelSize, pixelSize, pixelSize, highlightColor);
+    // Animasyonlu glint: her 90 frame'de bir kısa parlama
+    const glintCycle = frame % 90;
+    if (glintCycle < 8) {
+      const glintAlpha = Math.sin((glintCycle / 7) * Math.PI);
+      ctx.globalAlpha = glintAlpha * 0.85;
+      const glintCol = currentThemeName === 'matrix' ? '#aaffaa'
+                     : currentThemeName === 'cyberpunk' ? '#aaffff'
+                     : '#ffffff';
+      px(x + 16*pixelSize, startY + 2*pixelSize, 2*pixelSize, pixelSize, glintCol);
+      px(x + 23*pixelSize, startY + 2*pixelSize, 2*pixelSize, pixelSize, glintCol);
+      ctx.globalAlpha = 1;
+    }
   } else if (activeSkin === 'partyhat') {
     const hatColor = getSkinColor('partyhat');
     const detailColor = getSkinColor('sunglasses');
@@ -1248,6 +1703,136 @@ function drawDino(d) {
     px(x + 21 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, hatColor);
     px(x + 22 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, detailColor);
     px(x + 23 * pixelSize, startY - 1 * pixelSize, pixelSize, pixelSize, hatColor);
+
+  } else if (activeSkin === 'cowboy') {
+    // 🤠 Kovboy Şapkası
+    const hatColor = getSkinColor('cowboy');
+    const bandColor = currentThemeName === 'matrix' ? '#009900'
+                    : currentThemeName === 'cyberpunk' ? '#cc0066'
+                    : isDarkMode ? '#8B6914' : '#5C2D00';
+    // Geniş ağzlık (brim) - en geniş kısım
+    px(x + 11*pixelSize, startY - 1*pixelSize, 18*pixelSize, 2*pixelSize, hatColor);
+    // Şapka gövdesi alt
+    px(x + 14*pixelSize, startY - 2*pixelSize, 12*pixelSize, pixelSize, hatColor);
+    // Şerit (band)
+    px(x + 14*pixelSize, startY - 3*pixelSize, 12*pixelSize, pixelSize, bandColor);
+    // Şapka gövdesi orta
+    px(x + 15*pixelSize, startY - 5*pixelSize, 10*pixelSize, 2*pixelSize, hatColor);
+    // Şapka tepesi
+    px(x + 16*pixelSize, startY - 7*pixelSize, 8*pixelSize, 2*pixelSize, hatColor);
+    // Toka/rozet detayı
+    const buckleColor = currentThemeName === 'matrix' ? '#00ff00'
+                      : currentThemeName === 'cyberpunk' ? '#ffff00'
+                      : '#FFD700';
+    px(x + 19*pixelSize, startY - 3*pixelSize, 2*pixelSize, pixelSize, buckleColor);
+
+  } else if (activeSkin === 'crown') {
+    // 👑 Altın Taç - yaylanma animasyonu
+    const crownColor = getSkinColor('crown');
+    const gemRed  = currentThemeName === 'matrix' ? '#00ff00' : currentThemeName === 'cyberpunk' ? '#ff00ff' : '#ff2020';
+    const gemBlue = currentThemeName === 'matrix' ? '#00aa00' : currentThemeName === 'cyberpunk' ? '#00ffff' : '#2244ff';
+    // Zıplama yaylanması: yerde iken hafif sinüs, havada iken daha fazla
+    const bobOffset = d.onGround
+      ? Math.round(Math.sin(frame * 0.15) * 0.7)   // koşarken hafif sarsıntı
+      : Math.round(Math.sin(frame * 0.25) * 1.5);   // havada daha belirgin
+    const cY = startY + bobOffset;
+    // Taban şeridi
+    px(x + 16*pixelSize, cY - 2*pixelSize, 14*pixelSize, 2*pixelSize, crownColor);
+    // Sol kenarlık
+    px(x + 16*pixelSize, cY - 5*pixelSize, 2*pixelSize, 3*pixelSize, crownColor);
+    // Sağ kenarlık
+    px(x + 28*pixelSize, cY - 5*pixelSize, 2*pixelSize, 3*pixelSize, crownColor);
+    // Sol orta diş
+    px(x + 19*pixelSize, cY - 5*pixelSize, 2*pixelSize, 3*pixelSize, crownColor);
+    // Orta büyük diş
+    px(x + 22*pixelSize, cY - 8*pixelSize, 2*pixelSize, 6*pixelSize, crownColor);
+    // Sağ orta diş
+    px(x + 25*pixelSize, cY - 5*pixelSize, 2*pixelSize, 3*pixelSize, crownColor);
+    // Mücevher sol
+    px(x + 16*pixelSize, cY - 5*pixelSize, 2*pixelSize, 2*pixelSize, gemRed);
+    // Mücevher orta (mavi)
+    px(x + 22*pixelSize, cY - 8*pixelSize, 2*pixelSize, 2*pixelSize, gemBlue);
+    // Mücevher sağ
+    px(x + 28*pixelSize, cY - 5*pixelSize, 2*pixelSize, 2*pixelSize, gemRed);
+
+  } else if (activeSkin === 'mohawk') {
+    // Mohawk / Punk Saçı
+    const spikeColor = getSkinColor('mohawk');
+    const spikeColor2 = currentThemeName === 'matrix' ? '#003300'
+                      : currentThemeName === 'cyberpunk' ? '#660033'
+                      : isDarkMode ? '#cc2222' : '#ff8800';
+    // Orta tepe
+    px(x + 19*pixelSize, startY - 9*pixelSize, 2*pixelSize, pixelSize, spikeColor);
+    px(x + 19*pixelSize, startY - 8*pixelSize, 2*pixelSize, 2*pixelSize, spikeColor);
+    // Sol tepe
+    px(x + 16*pixelSize, startY - 7*pixelSize, 2*pixelSize, pixelSize, spikeColor2);
+    px(x + 16*pixelSize, startY - 6*pixelSize, 2*pixelSize, 2*pixelSize, spikeColor2);
+    // Sağ tepe
+    px(x + 22*pixelSize, startY - 7*pixelSize, 2*pixelSize, pixelSize, spikeColor2);
+    px(x + 22*pixelSize, startY - 6*pixelSize, 2*pixelSize, 2*pixelSize, spikeColor2);
+    // Taban çizgisi
+    px(x + 14*pixelSize, startY - 5*pixelSize, 12*pixelSize, 2*pixelSize, spikeColor);
+    // Çift renk efekti
+    px(x + 17*pixelSize, startY - 5*pixelSize, 2*pixelSize, 2*pixelSize, spikeColor2);
+    px(x + 21*pixelSize, startY - 5*pixelSize, 2*pixelSize, 2*pixelSize, spikeColor2);
+
+  } else if (activeSkin === 'snail') {
+    // Salyangoz Kabuğu - dinonun başının üstünde yuvarlak spiral kabuk
+    const shellColor  = getSkinColor('snail');
+    const shellDark   = currentThemeName === 'matrix' ? '#005500'
+                      : currentThemeName === 'cyberpunk' ? '#770033'
+                      : isDarkMode ? '#8a6830' : '#6b3f15';
+    const shellMid    = currentThemeName === 'matrix' ? '#009900'
+                      : currentThemeName === 'cyberpunk' ? '#cc5577'
+                      : isDarkMode ? '#c09555' : '#a07838';
+    const shellLight  = currentThemeName === 'matrix' ? '#33ff33'
+                      : currentThemeName === 'cyberpunk' ? '#ffaacc'
+                      : isDarkMode ? '#eed8a0' : '#f5e8c0';
+    const eyeCol      = currentThemeName === 'matrix' ? '#00ff00'
+                      : currentThemeName === 'cyberpunk' ? '#ff44aa'
+                      : isDarkMode ? '#ffffff' : '#111111';
+    const stalkCol    = currentThemeName === 'matrix' ? '#007700'
+                      : currentThemeName === 'cyberpunk' ? '#aa3366'
+                      : isDarkMode ? '#b09060' : '#8a6030';
+
+    // Kabuk: daire benzeri, sağa hafif yaslanmış (kafanın üstü col 16-28, ortası ~22)
+    // Alt taban - kafaya oturma yüzeyi
+    px(x + 16*pixelSize, startY - 1*pixelSize, 12*pixelSize, pixelSize, shellDark);
+    // 1. katman
+    px(x + 15*pixelSize, startY - 3*pixelSize, 14*pixelSize, 2*pixelSize, shellColor);
+    // 2. katman (en geniş)
+    px(x + 14*pixelSize, startY - 7*pixelSize, 16*pixelSize, 4*pixelSize, shellColor);
+    // 3. katman
+    px(x + 15*pixelSize, startY - 10*pixelSize, 14*pixelSize, 3*pixelSize, shellColor);
+    // 4. katman (tepe)
+    px(x + 17*pixelSize, startY - 12*pixelSize, 10*pixelSize, 2*pixelSize, shellColor);
+    // Yuvarlak tepe
+    px(x + 19*pixelSize, startY - 13*pixelSize, 6*pixelSize, pixelSize, shellColor);
+
+    // Spiral çizgileri - dıştan içe doğru
+    // Dış halka
+    px(x + 14*pixelSize, startY - 5*pixelSize, 16*pixelSize, pixelSize, shellDark);
+    px(x + 15*pixelSize, startY - 9*pixelSize, 14*pixelSize, pixelSize, shellDark);
+    // İç halka
+    px(x + 18*pixelSize, startY - 7*pixelSize, 8*pixelSize, pixelSize, shellMid);
+    // Spiral merkezi (koyu göbek)
+    px(x + 20*pixelSize, startY - 9*pixelSize, 4*pixelSize, 3*pixelSize, shellDark);
+    px(x + 21*pixelSize, startY - 8*pixelSize, 2*pixelSize, pixelSize, shellLight);
+
+    // Parlama / highlight
+    px(x + 16*pixelSize, startY - 10*pixelSize, 2*pixelSize, 2*pixelSize, shellLight);
+    px(x + 24*pixelSize, startY - 11*pixelSize, 2*pixelSize, pixelSize, shellLight);
+
+    // Göz sapları animasyonu: yavaş yukarı-aşağı titreşim
+    const eyeBob = Math.round(Math.sin(frame * 0.12) * 1.5); // -1..+1 px
+    // Sol anten
+    px(x + 16*pixelSize, startY - 14*pixelSize + eyeBob, pixelSize, 2*pixelSize, stalkCol);
+    px(x + 15*pixelSize, startY - 15*pixelSize + eyeBob, pixelSize, pixelSize, stalkCol);
+    px(x + 15*pixelSize, startY - 16*pixelSize + eyeBob, 2*pixelSize, pixelSize, eyeCol);
+    // Sağ anten
+    px(x + 24*pixelSize, startY - 14*pixelSize + eyeBob, pixelSize, 2*pixelSize, stalkCol);
+    px(x + 25*pixelSize, startY - 15*pixelSize + eyeBob, pixelSize, pixelSize, stalkCol);
+    px(x + 24*pixelSize, startY - 16*pixelSize + eyeBob, 2*pixelSize, pixelSize, eyeCol);
   }
 }
 
@@ -1295,17 +1880,79 @@ function hitTest(d, o) {
          d.bottom > oY + 4 && d.top < oY + o.h - 4;
 }
 
+// Gece/gündüz gökyüzü ve yıldız çizimi
+function drawSky() {
+  // Sadece klasik temada gece/gündüz aktif
+  if (currentThemeName !== 'classic') return;
+
+  if (dayNightT < 0.01) return; // tam gündüz: arka plan yeterli
+
+  // Gece renkleri: gökyüzü gradyanı
+  const nightTop    = isDarkMode ? '#000818' : '#0a0e2a';
+  const nightBottom = isDarkMode ? '#0a0a20' : '#141830';
+  const grd = ctx.createLinearGradient(0, 0, 0, GROUND);
+  grd.addColorStop(0,   nightTop);
+  grd.addColorStop(1,   nightBottom);
+
+  ctx.globalAlpha = Math.min(1, dayNightT * 1.2);
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, W, GROUND);
+  ctx.globalAlpha = 1;
+
+  // Yıldızlar
+  const starAlpha = Math.max(0, (dayNightT - 0.3) / 0.7);
+  if (starAlpha > 0) {
+    ctx.globalAlpha = starAlpha;
+    for (const s of STARS) {
+      const twinkle = 0.6 + 0.4 * Math.sin(frame * 0.05 + s.x * 10);
+      ctx.globalAlpha = starAlpha * twinkle;
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(s.x * W, s.y * GROUND, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // Ay
+    const moonAlpha = Math.min(1, starAlpha * 1.5);
+    ctx.globalAlpha = moonAlpha;
+    ctx.fillStyle = '#f0e8c0';
+    ctx.beginPath();
+    ctx.arc(W * 0.82, GROUND * 0.22, 14, 0, Math.PI * 2);
+    ctx.fill();
+    // Ay krater detayları
+    ctx.fillStyle = '#d8d0a8';
+    ctx.beginPath(); ctx.arc(W * 0.82 + 4, GROUND * 0.22 - 3, 3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(W * 0.82 - 5, GROUND * 0.22 + 4, 2, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
 function loop() {
   requestAnimationFrame(loop);
+
+  // ── Arka plan ──
   ctx.fillStyle = C.bg;
   ctx.fillRect(0, 0, W, H);
+
+  // ── Gece/Gündüz güncelle ──
+  if (state === 'running' && currentThemeName === 'classic') {
+    // Her DAY_NIGHT_INTERVAL skorda yön değiştir
+    if (score - lastDayNightScore >= DAY_NIGHT_INTERVAL) {
+      lastDayNightScore = score;
+      dayNightDir *= -1;
+    }
+    dayNightT = Math.max(0, Math.min(1, dayNightT + DAY_NIGHT_SPEED * dayNightDir));
+  }
+
+  drawSky();
   drawClouds();
   drawGround();
 
   if (state === 'running') {
     frame++;
     score += 0.1;
-    speed = 5 + Math.min(15, score * 0.006);
+    speed = calcSpeed(score);
 
     for (const c of clouds) {
       c.x -= c.speed;
@@ -1316,14 +1963,40 @@ function loop() {
       if (d.x < 0) d.x = W + Math.random() * 40;
     }
 
+    // Toz parçacıkları - koşarken (her 6 frame)
+    if (dino.onGround && frame % 6 === 0) {
+      const dustColors = currentThemeName === 'matrix' ? ['#003300','#005500']
+                       : currentThemeName === 'cyberpunk' ? ['#220044','#440066']
+                       : isDarkMode ? ['#3c4043','#555'] : ['#ccc','#ddd','#bbb'];
+      spawnParticles(
+        dino.x + 18, GROUND,
+        2, dustColors,
+        [-1.5, 0.5], [-1.5, -0.2],
+        [12, 20]
+      );
+    }
+
+    const wasOnGround = dino.onGround;
     dino.update();
+
+    // İniş tozu
+    if (!wasOnGround && dino.onGround) {
+      const dustColors = currentThemeName === 'matrix' ? ['#004400','#007700','#00aa00']
+                       : currentThemeName === 'cyberpunk' ? ['#440055','#880099','#cc00cc']
+                       : isDarkMode ? ['#555','#777','#999'] : ['#bbb','#ccc','#eee'];
+      spawnParticles(
+        dino.x + 22, GROUND,
+        8, dustColors,
+        [-3, 3], [-3, -0.5],
+        [18, 30]
+      );
+    }
 
     nextObs--;
     if (nextObs <= 0) {
       spawnObs();
-      const minDistance = speed * 38 + 120;
-      const randomDistance = Math.random() * 300;
-      nextObs = (minDistance + randomDistance) / speed;
+      const gapPx = 380 + Math.random() * 300;
+      nextObs = gapPx / speed;
     }
     for (let i = obstacles.length - 1; i >= 0; i--) {
       obstacles[i].x -= speed;
@@ -1331,7 +2004,7 @@ function loop() {
       if (hitTest(dino, obstacles[i])) { die(); }
     }
 
-    document.getElementById('score').textContent = Math.floor(score).toString().padStart(5, '0');
+    elScore.textContent = Math.floor(score).toString().padStart(5, '0');
 
     // Milestone sound trigger
     const currentMilestone = Math.floor(score / 100) * 100;
@@ -1344,13 +2017,25 @@ function loop() {
   for (const o of obstacles) {
     if (o.type === 'cactus') drawCactus(o); else drawBird(o);
   }
+  updateAndDrawParticles();
   drawDino(dino);
 }
 
 function die() {
   state = 'dead';
   const finalScore = Math.floor(score);
-  
+
+  // Çarpışma parçacık patlaması
+  const sparkColors = currentThemeName === 'matrix' ? ['#00ff00','#00aa00','#007700']
+                    : currentThemeName === 'cyberpunk' ? ['#ff007f','#00ffff','#ff00ff','#ffff00']
+                    : isDarkMode ? ['#f1f3f4','#acb0b6','#ffffff'] : ['#535353','#888','#333','#aaa'];
+  spawnParticles(
+    dino.x + 22, dino.y - 26,
+    18, sparkColors,
+    [-5, 5], [-7, -1],
+    [25, 45]
+  );
+
   // Play retro explosion crash sound
   playCrashSound();
 
@@ -1358,71 +2043,53 @@ function die() {
 
   // Temporarily update high score display if beaten
   hiScore = Math.max(hiScore, finalScore);
-  document.getElementById('hi').textContent = hiScore.toString().padStart(5, '0');
+  elHi.textContent = hiScore.toString().padStart(5, '0');
   
-  const ov = document.getElementById('overlay');
-  const ovTitle = document.getElementById('overlay-title');
-  const ovSub = document.getElementById('overlay-sub');
-  const ovHint = document.getElementById('overlay-hint');
-  const namePanel = document.getElementById('name-input-panel');
-  const modeSel = document.querySelector('.mode-selector');
-  const shareBtn = document.getElementById('share-btn');
-  
-  ov.style.display = 'flex';
-  ovTitle.textContent = 'GAME OVER';
-  ovSub.textContent = `SKORUN: ${finalScore.toString().padStart(5,'0')}`;
-  
-  // Check if score qualifies for top 5 leaderboard
+  elOverlay.style.display = 'flex';
+  elOvTitle.textContent = 'GAME OVER';
+  elOvSub.textContent = `SKORUN: ${finalScore.toString().padStart(5,'0')}`;
+
   const qualifies = leaderboard.length < 5 || finalScore > leaderboard[leaderboard.length - 1].score;
-  
+
   if (qualifies) {
-    if (modeSel) modeSel.style.display = 'none';
-    namePanel.style.display = 'block';
-    ovHint.style.display = 'none';
-    if (shareBtn) shareBtn.style.display = 'none'; // hide until saved
-    
-    // Focus name input after element is visible
-    const nameInput = document.getElementById('player-name');
-    nameInput.value = '';
-    setTimeout(() => nameInput.focus(), 100);
+    elModeSel.style.display = 'none';
+    elNamePanel.style.display = 'block';
+    elOvHint.style.display = 'none';
+    elShareBtnRow.style.display = 'none';
+    elPlayerName.value = '';
+    setTimeout(() => elPlayerName.focus(), 100);
   } else {
-    if (modeSel) modeSel.style.display = 'flex';
-    namePanel.style.display = 'none';
-    ovHint.textContent = 'YENİDEN BAŞLAMAK İÇİN DOKUN / BOŞLUK';
-    ovHint.style.display = 'block';
-    if (shareBtn) shareBtn.style.display = 'block'; // show directly
+    elModeSel.style.display = 'flex';
+    elNamePanel.style.display = 'none';
+    elOvHint.textContent = 'YENİDEN BAŞLAMAK İÇİN DOKUN / BOŞLUK';
+    elOvHint.style.display = 'block';
+    elShareBtnRow.style.display = 'flex';
   }
 }
 
 function startGame() {
-  // Prevent starting if score submission name entry panel is open
-  const namePanel = document.getElementById('name-input-panel');
-  if (namePanel && namePanel.style.display === 'block') return;
+  if (elNamePanel.style.display === 'block') return;
 
   state = 'running';
   score = 0; frame = 0; speed = 5;
   obstacles = []; nextObs = 80;
+  particles = [];
   dino.y = GROUND; dino.vy = 0; dino.onGround = true;
   lastMilestone = 0;
-  
-  const shareBtn = document.getElementById('share-btn');
-  if (shareBtn) shareBtn.style.display = 'none';
+  lastDayNightScore = 0;
+  dayNightT = 0;
+  dayNightDir = 1;
 
-  document.getElementById('score').textContent = '00000';
-  document.getElementById('overlay').style.display = 'none';
+  elShareBtnRow.style.display = 'none';
+  elScore.textContent = '00000';
+  elOverlay.style.display = 'none';
 }
 
 document.addEventListener('keydown', e => {
   if (e.code === 'Space' || e.code === 'ArrowUp') {
-    // Ignore input if user is typing name
-    if (document.activeElement === document.getElementById('player-name')) {
-      return;
-    }
-    const namePanel = document.getElementById('name-input-panel');
-    if (namePanel && namePanel.style.display === 'block') {
-      return;
-    }
-    
+    if (document.activeElement === elPlayerName) return;
+    if (elNamePanel.style.display === 'block') return;
+    if (elShareModal.style.display === 'flex') return;
     e.preventDefault();
     isJumpingInput = true;
     if (state !== 'running') startGame(); else dino.jump();
@@ -1453,8 +2120,6 @@ document.addEventListener('pointerdown', e => {
 
   isJumpingInput = true;
   if (state !== 'running') {
-    const namePanel = document.getElementById('name-input-panel');
-    if (namePanel && namePanel.style.display === 'block') return;
     startGame();
   } else {
     dino.jump();
@@ -1527,122 +2192,77 @@ modeBtns.forEach(btn => {
   btn.addEventListener('touchstart', selectMode, { passive: false });
 });
 
-// Share button click (Show share link & code)
-const shareBtn = document.getElementById('share-btn');
-if (shareBtn) {
-  shareBtn.addEventListener('click', () => {
-    const finalScore = Math.floor(score);
-    const nameInput = document.getElementById('player-name');
-    let name = 'AAA';
-    
-    const namePanel = document.getElementById('name-input-panel');
-    if (namePanel && namePanel.style.display === 'block') {
-      name = nameInput.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-      if (!name) name = 'AAA';
-    } else {
-      name = localStorage.getItem('last_player_name') || 'AAA';
-    }
-    
-    // Set verified secure code in input field
-    const shareCodeInput = document.getElementById('share-code-input');
-    if (shareCodeInput) {
-      shareCodeInput.value = encodeShareCode(name, finalScore);
-    }
-    
-    document.getElementById('share-modal').style.display = 'flex';
-  });
-}
+document.getElementById('share-btn').addEventListener('click', () => {
+  const finalScore = Math.floor(score);
+  let name = elNamePanel.style.display === 'block'
+    ? (elPlayerName.value.trim().toLocaleUpperCase('tr-TR').replace(/[^A-Z0-9ÇĞİÖŞÜ]/g, '') || 'AAA')
+    : (localStorage.getItem('last_player_name') || 'AAA');
+  elShareCode.value = encodeShareCode(name, finalScore);
+  elShareModal.style.display = 'flex';
+});
 
-// Copy sharing code button
+document.getElementById('dismiss-share-btn').addEventListener('click', () => {
+  elShareBtnRow.style.display = 'none';
+});
+
 const copyCodeBtn = document.getElementById('copy-code-btn');
-if (copyCodeBtn) {
-  copyCodeBtn.addEventListener('click', () => {
-    const input = document.getElementById('share-code-input');
-    if (input) {
-      input.select();
-      input.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(input.value).then(() => {
-        const originalText = copyCodeBtn.textContent;
-        copyCodeBtn.textContent = 'KOPYALANDI!';
-        setTimeout(() => {
-          copyCodeBtn.textContent = originalText;
-        }, 1500);
-      }).catch(err => {
-        console.error('Copy failed: ', err);
-      });
-    }
-  });
-}
+copyCodeBtn.addEventListener('click', () => {
+  elShareCode.select();
+  elShareCode.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(elShareCode.value).then(() => {
+    const orig = copyCodeBtn.textContent;
+    copyCodeBtn.textContent = 'KOPYALANDI!';
+    setTimeout(() => { copyCodeBtn.textContent = orig; }, 1500);
+  }).catch(err => console.error('Copy failed: ', err));
+});
 
-// Close Share Modal button
-const closeShareBtn = document.getElementById('close-share-btn');
-if (closeShareBtn) {
-  closeShareBtn.addEventListener('click', () => {
-    document.getElementById('share-modal').style.display = 'none';
-  });
-}
+document.getElementById('close-share-btn').addEventListener('click', () => {
+  elShareModal.style.display = 'none';
+});
 
-// Import code event listeners
-const importBtn = document.getElementById('import-code-btn');
-if (importBtn) {
-  importBtn.addEventListener('click', () => {
-    const codeVal = document.getElementById('import-code-input').value;
-    loadSharedScore(codeVal);
-  });
-}
+document.getElementById('import-code-btn').addEventListener('click', () => {
+  loadSharedScore(elImportInput.value);
+});
 
-const importInput = document.getElementById('import-code-input');
-if (importInput) {
-  importInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      loadSharedScore(importInput.value);
-    }
-  });
-}
+elImportInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') loadSharedScore(elImportInput.value);
+});
 
 function saveScore() {
-  const nameInput = document.getElementById('player-name');
-  let name = nameInput.value.trim().toUpperCase();
-  name = name.replace(/[^A-Z0-9]/g, '');
+  let name = elPlayerName.value.trim().toLocaleUpperCase('tr-TR').replace(/[^A-Z0-9ÇĞİÖŞÜ]/g, '');
   if (!name) name = 'AAA';
-  
   localStorage.setItem('last_player_name', name);
-  
-  const finalScore = Math.floor(score);
-  
-  leaderboard.push({ name: name, score: finalScore });
+
+  leaderboard.push({ name, score: Math.floor(score) });
   leaderboard.sort((a, b) => b.score - a.score);
   leaderboard = leaderboard.slice(0, 5);
-  
   localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-  
+
   hiScore = leaderboard[0].score;
-  document.getElementById('hi').textContent = hiScore.toString().padStart(5, '0');
-  
+  elHi.textContent = hiScore.toString().padStart(5, '0');
   renderLeaderboard();
-  
-  const namePanel = document.getElementById('name-input-panel');
-  namePanel.style.display = 'none';
-  
-  const ovHint = document.getElementById('overlay-hint');
-  ovHint.textContent = 'YENİDEN BAŞLAMAK İÇİN DOKUN / BOŞLUK';
-  ovHint.style.display = 'block';
-  
-  const shareBtn = document.getElementById('share-btn');
-  if (shareBtn) shareBtn.style.display = 'block';
-  
-  const modeSel = document.querySelector('.mode-selector');
-  if (modeSel) modeSel.style.display = 'flex';
+
+  elNamePanel.style.display = 'none';
+  elOvHint.textContent = 'YENİDEN BAŞLAMAK İÇİN DOKUN / BOŞLUK';
+  elOvHint.style.display = 'block';
+  elShareBtnRow.style.display = 'flex';
+  elModeSel.style.display = 'flex';
+}
+
+function skipSave() {
+  hiScore = leaderboard.length > 0 ? leaderboard[0].score : 0;
+  elHi.textContent = hiScore.toString().padStart(5, '0');
+  elNamePanel.style.display = 'none';
+  elOvHint.textContent = 'YENİDEN BAŞLAMAK İÇİN DOKUN / BOŞLUK';
+  elOvHint.style.display = 'block';
+  elModeSel.style.display = 'flex';
 }
 
 document.getElementById('save-name-btn').addEventListener('click', saveScore);
-document.getElementById('player-name').addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    saveScore();
-  }
-});
-document.getElementById('player-name').addEventListener('input', e => {
-  e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
+document.getElementById('skip-save-btn').addEventListener('click', skipSave);
+elPlayerName.addEventListener('keydown', e => { if (e.key === 'Enter') saveScore(); });
+elPlayerName.addEventListener('input', e => {
+  e.target.value = e.target.value.replace(/[^a-zA-Z0-9çÇğĞıİöÖşŞüÜ]/g, '');
 });
 
 // Setup audio activation on first user interaction (browser policy)
@@ -1680,11 +2300,30 @@ function initCustomization() {
   // Audio init
   const savedMuted = localStorage.getItem('muted') === 'true';
   setMuted(savedMuted);
-  
 
-  
+  // Leaderboard collapse init
+  setLeaderboardCollapsed(localStorage.getItem('leaderboard_collapsed') === 'true');
+
   // Scan shared scores URL parameters
   checkShareUrl();
+}
+
+// Leaderboard show/hide toggle
+function setLeaderboardCollapsed(collapsed) {
+  const content = document.getElementById('leaderboard-content');
+  const btn = document.getElementById('leaderboard-toggle-btn');
+  if (content) content.style.display = collapsed ? 'none' : 'flex';
+  if (btn) btn.classList.toggle('collapsed', collapsed);
+  localStorage.setItem('leaderboard_collapsed', collapsed ? 'true' : 'false');
+}
+
+const leaderboardToggleBtn = document.getElementById('leaderboard-toggle-btn');
+if (leaderboardToggleBtn) {
+  leaderboardToggleBtn.addEventListener('click', () => {
+    const content = document.getElementById('leaderboard-content');
+    const isCollapsed = content && content.style.display === 'none';
+    setLeaderboardCollapsed(!isCollapsed);
+  });
 }
 
 initCustomization();

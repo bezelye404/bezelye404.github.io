@@ -139,3 +139,45 @@ footer.site .small { font-size: 0.85rem; }
   .scene .dino { width: 3.4rem; }
   .scene .cactus { width: 1.9rem; }
 }
+
+/* featured project */
+.featured { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 2rem; margin-top: 1.75rem; padding: 1.8rem; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; transition: border-color 0.25s var(--ease); }
+.featured:hover { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); }
+.featured .eyebrow { margin-bottom: 0.5rem; }
+.featured h3 { font-size: 1.9rem; margin-bottom: 0.5rem; }
+.featured p { color: var(--muted); }
+.featured .links { display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 0.4rem 0 0; font-size: 0.95rem; }
+.featured .links a { text-decoration: none; font-weight: 600; }
+.featured .links a:hover { text-decoration: underline; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; margin: 0 0 1rem; }
+.chips li { font-size: 0.82rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0.15rem 0.7rem; }
+.featured-side { align-self: center; }
+.featured-side .label { font: 600 0.78rem ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+.featured-side .note { font-size: 0.86rem; margin: 0.7rem 0 0; }
+.term { display: flex; gap: 0.7rem; background: #1f1d1b; color: #ece8e1; border-radius: 10px; padding: 0.85rem 1rem; font: 0.84rem/1.5 ui-monospace, "SF Mono", Menlo, monospace; }
+.term .prompt { color: #8b857a; user-select: none; }
+.term code { user-select: all; overflow-wrap: anywhere; }
+.featured + .grid { margin-top: 1rem; }
+
+/* about */
+.about { max-width: 44rem; }
+.about p { color: var(--muted); font-size: 1.08rem; }
+
+@media (max-width: 760px) {
+  .featured { grid-template-columns: minmax(0, 1fr); padding: 1.4rem; gap: 1.4rem; }
+  .featured-side { align-self: stretch; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .featured { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+  }
+}
+
+@media (max-width: 480px) {
+  nav ul { gap: 0.8rem; }
+  nav li:not(:last-child) { display: none; }
+}
+@media (max-width: 480px) {
+  .term { font-size: 0.76rem; }
+}

@@ -23,16 +23,62 @@
   <meta property="og:title" content="bezelye404: small, careful software">
   <meta property="og:description" content="Versoline, a private RSS reader for Mac, and a few other small projects.">
   <meta property="og:url" content="https://bezelye404.github.io/">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://bezelye404.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="bezelye404: small, careful software. A pixel dinosaur jumps over a cactus.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="bezelye404: small, careful software">
+  <meta name="twitter:description" content="Versoline, a private RSS reader for Mac, and a few other small projects.">
+  <meta name="twitter:image" content="https://bezelye404.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="bezelye404: small, careful software. A pixel dinosaur jumps over a cactus.">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "bezelye404",
-    "alternateName": "bezelye",
-    "url": "https://bezelye404.github.io/",
-    "sameAs": ["https://github.com/bezelye404"]
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://bezelye404.github.io/#website",
+        "url": "https://bezelye404.github.io/",
+        "name": "bezelye404",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://bezelye404.github.io/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://bezelye404.github.io/#person",
+        "name": "bezelye404",
+        "alternateName": "bezelye",
+        "url": "https://bezelye404.github.io/",
+        "description": "Makes small, private software, mostly for the Mac.",
+        "sameAs": ["https://github.com/bezelye404"]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://bezelye404.github.io/#versoline",
+        "name": "Versoline",
+        "applicationCategory": "NewsApplication",
+        "operatingSystem": "macOS 15 or later",
+        "url": "https://bezelye404.github.io/Versoline/",
+        "downloadUrl": "https://github.com/bezelye404/Versoline/releases/latest",
+        "codeRepository": "https://github.com/bezelye404/Versoline",
+        "license": "https://opensource.org/licenses/MIT",
+        "isAccessibleForFree": true,
+        "author": { "@id": "https://bezelye404.github.io/#person" },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "VideoGame",
+        "@id": "https://bezelye404.github.io/#dino",
+        "name": "Dino",
+        "url": "https://bezelye404.github.io/dino/",
+        "codeRepository": "https://github.com/bezelye404/dino",
+        "author": { "@id": "https://bezelye404.github.io/#person" },
+        "isAccessibleForFree": true
+      }
+    ]
   }
   </script>
 </head>
@@ -45,6 +91,7 @@
       <nav aria-label="Main">
         <ul>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#about">About</a></li>
           <li><a class="pill" href="https://github.com/bezelye404">GitHub</a></li>
         </ul>
       </nav>
@@ -72,12 +119,21 @@
     <section id="projects">
       <div class="wrap">
         <h2>Projects</h2>
+      <article class="featured">
+        <div class="featured-text">
+          <p class="eyebrow">Main project</p>
+          <h3>Versoline</h3>
+          <p>A private RSS reader and podcast player for the Mac. It follows your feeds, YouTube channels and Reddit communities, shows a story once even when several of your feeds report it, and keeps everything on your own machine.</p>
+          <ul class="chips"><li>Free and open source</li><li>No account, no analytics</li><li>macOS 15 or later</li></ul>
+          <p class="links"><a href="https://bezelye404.github.io/Versoline/">Website<span aria-hidden="true"> &#8599;</span></a> <a href="https://github.com/bezelye404/Versoline/releases/latest">Download<span aria-hidden="true"> &#8599;</span></a> <a href="https://github.com/bezelye404/Versoline">Source<span aria-hidden="true"> &#8599;</span></a></p>
+        </div>
+        <div class="featured-side">
+          <p class="label">Install with Homebrew</p>
+          <div class="term"><span class="prompt">$</span><code>brew install --cask bezelye404/versoline/versoline</code></div>
+          <p class="note">Or download the disk image from the releases page.</p>
+        </div>
+      </article>
         <div class="grid">
-        <article class="card">
-          <div class="card-top"><h3>Versoline</h3><span class="lang">Swift</span></div>
-          <p>A private, zero-dependency RSS reader, podcast and YouTube player for Mac.</p>
-          <p class="links"><a href="https://bezelye404.github.io/Versoline/">Website<span aria-hidden="true"> &#8599;</span></a> <a href="https://github.com/bezelye404/Versoline">Source<span aria-hidden="true"> &#8599;</span></a></p>
-        </article>
         <article class="card">
           <div class="card-top"><h3>Dino</h3><span class="lang">JavaScript</span></div>
           <p>A small endless-runner game in a single HTML file. Jump over the cacti.</p>
@@ -89,6 +145,14 @@
           <p class="links"><a href="https://github.com/bezelye404/Ultimate2CbluetoothFix">Source<span aria-hidden="true"> &#8599;</span></a></p>
         </article>
         </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap about">
+        <h2>About</h2>
+        <p>I like small software: apps that do one job well, run quietly and keep your data on your own machine. Versoline, my main project, started out as a simple RSS reader called easyRSS. It is native, uses only what Apple provides, and has grown into something I rely on every day.</p>
+        <p>I would rather use what the platform already offers than add a pile of libraries. It keeps things light, and it makes them easier to trust. Besides Versoline there is a small game and a few utilities, all on GitHub.</p>
       </div>
     </section>
   </main>

@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://bezelye404.github.io/sitemap.xml
-Sitemap: https://bezelye404.github.io/Versoline/sitemap.xml
